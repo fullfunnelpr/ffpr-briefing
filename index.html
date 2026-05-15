@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Press Release Briefing — Full Funnel PR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0f0f0f;
+      --white: #fafaf8;
+      --off-white: #f4f3ef;
+      --mid: #e8e6e0;
+      --muted: #9e9b94;
+      --text: #1a1a18;
+      --text-secondary: #6b6860;
+      --border: rgba(0,0,0,0.1);
+      --border-strong: rgba(0,0,0,0.2);
+      --hot: #c94f2a;
+      --hot-bg: #fdf0ec;
+      --pot: #2a7a4f;
+      --pot-bg: #edf6f1;
+      --bot: #8a6a1a;
+      --bot-bg: #faf4e0;
+      --not: #5a5a5a;
+      --not-bg: #f0f0ee;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --font: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      background: var(--black);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-mark span {
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .logo-text { line-height: 1.2; }
+    .logo-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .logo-sub { font-size: 12px; color: var(--muted); }
+
+    /* Stage tracker */
+    .stages {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 3rem;
+    }
+
+    .stage {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .stage.active { color: var(--text); font-weight: 500; }
+    .stage.done { color: var(--muted); }
+
+    .stage-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .stage.active .stage-num {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .stage.done .stage-num {
+      background: var(--off-white);
+      color: var(--muted);
+    }
+
+    .stage-done-check { font-size: 11px; }
+
+    .stage-connector {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin: 0 8px;
+    }
+
+    /* Form */
+    .form-heading { margin-bottom: 0.3rem; }
+    .form-heading h1 { font-size: 24px; font-weight: 400; color: var(--text); letter-spacing: -0.02em; }
+    .form-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2.5rem; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 2rem;
+    }
+
+    .field { margin-bottom: 1.75rem; }
+
+    .field-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .field-examples {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .req { color: #c94f2a; margin-left: 2px; }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--text);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      transition: border-color 0.15s, background 0.15s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--border-strong);
+      background: var(--white);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 88px;
+      line-height: 1.6;
+    }
+
+    textarea.short { min-height: 64px; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* Submit */
+    .submit-area { margin-top: 2rem; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.15s;
+      letter-spacing: -0.01em;
+    }
+
+    .submit-btn:hover { opacity: 0.82; }
+    .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .submit-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.875rem;
+      line-height: 1.5;
+    }
+
+    /* Progress */
+    .progress { display: none; margin-top: 1.5rem; }
+
+    .progress-track {
+      height: 2px;
+      background: var(--mid);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--black);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* Output */
+    .output { display: none; }
+
+    .verdict-card {
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+      border: 1px solid var(--border);
+    }
+
+    .verdict-card.hot { background: var(--hot-bg); border-color: rgba(201, 79, 42, 0.2); }
+    .verdict-card.pot { background: var(--pot-bg); border-color: rgba(42, 122, 79, 0.2); }
+    .verdict-card.bot { background: var(--bot-bg); border-color: rgba(138, 106, 26, 0.2); }
+    .verdict-card.not { background: var(--not-bg); border-color: var(--border); }
+
+    .verdict-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 0.875rem;
+    }
+
+    .verdict-badge.hot { background: rgba(201,79,42,0.12); color: var(--hot); }
+    .verdict-badge.pot { background: rgba(42,122,79,0.12); color: var(--pot); }
+    .verdict-badge.bot { background: rgba(138,106,26,0.12); color: var(--bot); }
+    .verdict-badge.not { background: rgba(90,90,90,0.1); color: var(--not); }
+
+    .verdict-reason {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+
+    .verdict-detail {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .output-block { margin-bottom: 2rem; }
+
+    .output-block-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.875rem;
+      padding-bottom: 0.625rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .output-body {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .gaps-list { list-style: none; }
+
+    .gap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .gap-item:last-child { border-bottom: none; }
+
+    .gap-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--bot);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .angle-box {
+      background: var(--off-white);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
+      font-style: italic;
+      border-left: 3px solid var(--black);
+    }
+
+    /* Next step */
+    .next-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      background: var(--black);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .next-panel-text { flex: 1; }
+    .next-panel-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+    .next-panel-sub { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+
+    .next-btn {
+      flex-shrink: 0;
+      padding: 10px 18px;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .next-btn:hover { opacity: 0.88; }
+
+    .reset-link {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1.25rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Error */
+    .error-box {
+      display: none;
+      background: var(--hot-bg);
+      border: 1px solid rgba(201,79,42,0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.875rem 1.125rem;
+      font-size: 13px;
+      color: var(--hot);
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Arrow icon inline */
+    .arrow { display: inline-block; }
+
+    @media (max-width: 540px) {
+      .page { padding: 2rem 1.25rem 4rem; }
+      .row-2 { grid-template-columns: 1fr; }
+      .stage-label-text { display: none; }
+      .next-panel { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-mark"><span>FF</span></div>
+      <div class="logo-text">
+        <div class="logo-name">Full Funnel PR</div>
+        <div class="logo-sub">Press release briefing</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="stages" id="stages">
+    <div class="stage active" id="stage1">
+      <div class="stage-num">1</div>
+      <span class="stage-label-text">Tell us the news</span>
+    </div>
+    <div class="stage-connector"></div>
+    <div class="stage" id="stage2">
+      <div class="stage-num">2</div>
+      <span class="stage-label-text">Assessment</span>
+    </div>
+    <div class="stage-connector"></div>
+    <div class="stage" id="stage3">
+      <div class="stage-num">3</div>
+      <span class="stage-label-text">Strengthen the story</span>
+    </div>
+    <div class="stage-connector"></div>
+    <div class="stage" id="stage4">
+      <div class="stage-num">4</div>
+      <span class="stage-label-text">Draft &amp; playbook</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div id="formSection">
+    <div class="form-heading">
+      <h1>Tell us about your news</h1>
+    </div>
+    <p class="form-sub">Answer the questions below — the more detail you give, the stronger the story we can build. There are no right or wrong answers at this stage.</p>
+
+    <div class="row-2">
+      <div class="field" style="margin-bottom:0">
+        <label class="field-label" for="company">Company name <span class="req">*</span></label>
+        <input type="text" id="company" placeholder="e.g. Acme Ltd" autocomplete="organization" />
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label class="field-label" for="contact">Your name</label>
+        <input type="text" id="contact" placeholder="e.g. Jane Smith" autocomplete="name" />
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="section-label">The event</div>
+
+    <div class="field">
+      <label class="field-label" for="q1">Q1 — What has happened? <span class="req">*</span></label>
+      <div class="field-hint">Describe the time-bound event being announced. What person, company, or product did what thing, and when?</div>
+      <textarea id="q1" placeholder="e.g. Acme Ltd has today signed a partnership with HSBC to offer its invoice finance product to HSBC's SME customers across the UK, launching in Q3 2026."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q2">Q2 — Who is affected, and how? <span class="req">*</span></label>
+      <div class="field-hint">Who does this impact — and can you put a number on it? People affected, money involved, time saved, scale of change.</div>
+      <textarea id="q2" placeholder="e.g. Around 2,000 UK SMEs who currently wait 60+ days for invoice payments will gain access to same-day financing from Q3."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q3">Q3 — What's the before-and-after? <span class="req">*</span></label>
+      <div class="field-hint">What was the situation before this happened? What changes now, and what comes next? Give us the arc.</div>
+      <textarea id="q3" placeholder="e.g. Previously Acme operated direct-to-SME only. This is the company's first banking partnership. The UK SME finance gap is estimated at £22bn — HSBC reaches a market Acme couldn't reach alone."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q4">Q4 — Are any well-known names involved?</label>
+      <div class="field-hint">Companies, brands, individuals — anyone with a media profile, social following, or market authority. Even if they're peripheral to the story.</div>
+      <textarea class="short" id="q4" placeholder="e.g. HSBC (partner). Also backed by Innovate UK. CEO Jane Smith has been profiled in the FT."></textarea>
+    </div>
+
+    <hr class="divider" />
+    <div class="section-label">Context &amp; angle</div>
+
+    <div class="field">
+      <label class="field-label" for="q5">Q5 — What thread does this build on?</label>
+      <div class="field-hint">What's already on record that this news continues or extends? Is this the first in a series, a follow-up to a previous announcement, or connected to something your company has said publicly before?</div>
+      <div class="field-examples">e.g. "Third partnership this year, following Barclays and Lloyds" / "We predicted this in our 2024 SME Finance Report" / "First partnership — nothing on record before this."</div>
+      <textarea class="short" id="q5" placeholder="What already exists that this news builds on?"></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q6">Q6 — Is there a standout angle?</label>
+      <div class="field-hint">A superlative or unusual twist that makes this stand out from similar announcements. Think: firsts, lasts, biggests, smallests, fastests, furthests, or a surprising contrast.</div>
+      <div class="field-examples">e.g. "First fintech integrated with HSBC's SME platform" / "Fastest invoice turnaround in the UK at 4 hours" / "12-person startup partnering with the UK's largest business bank."</div>
+      <textarea class="short" id="q6" placeholder="What makes this stand out from a competitor making the same announcement?"></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q7">Q7 — What topical conversations does this connect to?</label>
+      <div class="field-hint">Industry themes, news hooks, recent media coverage, or competitor activity that gives this story wider context.</div>
+      <textarea class="short" id="q7" placeholder="e.g. #SMEfinance, access to capital debate. Bank of England SME lending report (March 2026). Competitor Fundsmith recently closed their SME product."></textarea>
+    </div>
+
+    <hr class="divider" />
+    <div class="section-label">Assets</div>
+
+    <div class="field">
+      <label class="field-label" for="q8">Q8 — Who will be quoted?</label>
+      <div class="field-hint">Spokespeople from your company and any third parties. Include job titles. Who has final approval on the release?</div>
+      <textarea class="short" id="q8" placeholder="e.g. Jane Smith, CEO Acme (quote + final approver). John Brown, Head of SME Banking, HSBC (partner quote)."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q9">Q9 — Do you have photography?</label>
+      <div class="field-hint">Portrait-style images of the business leader are essential for editorial coverage. Corporate headshots don't work — we need natural, characterful portraits.</div>
+      <textarea class="short" id="q9" placeholder="e.g. Hi-res lifestyle portrait of Jane Smith (link). HSBC logo PNG. No product imagery yet."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="q10">Q10 — Any supporting data?</label>
+      <div class="field-hint">Third-party stats or market data that contextualise the significance of the news. Include a source link where possible.</div>
+      <textarea class="short" id="q10" placeholder="e.g. YouGov (2024): 67% of UK SMEs cite cash flow as their #1 challenge. yougov.co.uk/reports/..."></textarea>
+    </div>
+
+    <div class="submit-area">
+      <button class="submit-btn" id="submitBtn" onclick="submitBrief()">
+        Submit for assessment
+        <span class="arrow">→</span>
+      </button>
+      <p class="submit-note">We'll analyse your answers and return an honest impact assessment — what's strong, what could be stronger, and our recommended approach.</p>
+      <div class="error-box" id="errorBox"></div>
+    </div>
+
+    <div class="progress" id="progress">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">Reading your brief...</div>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output" id="output">
+
+    <div class="output-block">
+      <div class="output-block-label">Impact assessment</div>
+      <div class="verdict-card" id="verdictCard">
+        <div class="verdict-badge" id="verdictBadge"></div>
+        <div class="verdict-reason" id="verdictReason"></div>
+        <div class="verdict-detail" id="verdictDetail"></div>
+      </div>
+    </div>
+
+    <div class="output-block">
+      <div class="output-block-label">What's strong</div>
+      <div class="output-body" id="strengthsBody"></div>
+    </div>
+
+    <div class="output-block">
+      <div class="output-block-label">Where the story could be stronger</div>
+      <ul class="gaps-list" id="gapsList"></ul>
+    </div>
+
+    <div class="output-block">
+      <div class="output-block-label">Provisional angle</div>
+      <div class="angle-box" id="angleBox"></div>
+    </div>
+
+    <div class="next-panel">
+      <div class="next-panel-text">
+        <div class="next-panel-title">Ready to strengthen the story?</div>
+        <div class="next-panel-sub">Step 3 lets you address the gaps above — then we produce a full draft and tailored playbook.</div>
+      </div>
+      <button class="next-btn" onclick="goToStage3()">
+        Continue <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <button class="reset-link" onclick="resetForm()">Start a new brief</button>
+  </div>
+
+</div>
+
+<script>
+  function getVal(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  async function submitBrief() {
+    const company = getVal('company');
+    const q1 = getVal('q1');
+    const q2 = getVal('q2');
+    const q3 = getVal('q3');
+
+    const errorBox = document.getElementById('errorBox');
+    errorBox.style.display = 'none';
+
+    if (!company || !q1 || !q2 || !q3) {
+      errorBox.textContent = 'Please complete at least: company name and questions 1, 2, and 3 before submitting.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    const progress = document.getElementById('progress');
+    const fill = document.getElementById('progressFill');
+    const text = document.getElementById('progressText');
+
+    btn.disabled = true;
+    progress.style.display = 'block';
+
+    const steps = [
+      [12, 'Reading your brief...'],
+      [30, 'Checking for impact numbers and famous names...'],
+      [52, 'Assessing news strength...'],
+      [70, 'Identifying gaps...'],
+      [88, 'Building your assessment...']
+    ];
+
+    let si = 0;
+    const ticker = setInterval(() => {
+      if (si < steps.length) {
+        fill.style.width = steps[si][0] + '%';
+        text.textContent = steps[si][1];
+        si++;
+      }
+    }, 900);
+
+    const payload = {
+      company,
+      contact: getVal('contact'),
+      q1, q2, q3,
+      q4: getVal('q4'),
+      q5: getVal('q5'),
+      q6: getVal('q6'),
+      q7: getVal('q7'),
+      q8: getVal('q8'),
+      q9: getVal('q9'),
+      q10: getVal('q10'),
+    };
+
+    try {
+      const res = await fetch('/api/assess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      clearInterval(ticker);
+      fill.style.width = '100%';
+      text.textContent = 'Assessment ready.';
+
+      const data = await res.json();
+      const responseText = data.content?.[0]?.text || '';
+
+      if (!responseText) throw new Error('Empty response from assessment engine.');
+
+      setTimeout(() => renderOutput(responseText), 400);
+
+    } catch (err) {
+      clearInterval(ticker);
+      btn.disabled = false;
+      progress.style.display = 'none';
+      fill.style.width = '0%';
+      errorBox.textContent = 'Something went wrong. Please check your connection and try again. If the problem persists, email us directly.';
+      errorBox.style.display = 'block';
+    }
+  }
+
+  function parseSection(text, label, nextLabel) {
+    const start = text.indexOf(label);
+    if (start === -1) return '';
+    let content = text.slice(start + label.length);
+    if (nextLabel) {
+      const end = content.indexOf(nextLabel);
+      if (end !== -1) content = content.slice(0, end);
+    }
+    return content.replace(/^\s*[\n\r:]+/, '').trim();
+  }
+
+  function renderOutput(text) {
+    const verdictRaw = parseSection(text, 'VERDICT', 'STRENGTHS');
+    const strengthsRaw = parseSection(text, 'STRENGTHS', 'GAPS');
+    const gapsRaw = parseSection(text, 'GAPS', 'PROVISIONAL ANGLE');
+    const angleRaw = parseSection(text, 'PROVISIONAL ANGLE', null);
+
+    const lines = verdictRaw.split('\n').map(l => l.trim()).filter(Boolean);
+    const verdictLine = lines[0] || '';
+    const verdictRest = lines.slice(1).join(' ').trim();
+
+    let type = 'pot';
+    let label = '🪴 POT news';
+    if (verdictLine.startsWith('🔥')) { type = 'hot'; label = '🔥 HOT news'; }
+    else if (verdictLine.startsWith('🤖')) { type = 'bot'; label = '🤖 BOT news'; }
+    else if (verdictLine.startsWith('🤔')) { type = 'not'; label = '🤔 NOT news'; }
+
+    const reasonText = verdictLine.replace(/^[🔥🪴🤖🤔]\s*(HOT|POT|BOT|NOT):\s*/i, '').trim();
+
+    const card = document.getElementById('verdictCard');
+    card.className = 'verdict-card ' + type;
+
+    const badge = document.getElementById('verdictBadge');
+    badge.textContent = label;
+    badge.className = 'verdict-badge ' + type;
+
+    document.getElementById('verdictReason').textContent = reasonText;
+    document.getElementById('verdictDetail').textContent = verdictRest;
+    document.getElementById('strengthsBody').textContent = strengthsRaw;
+
+    const gapLines = gapsRaw.split('\n').filter(l => {
+      const t = l.trim();
+      return t.length > 0 && !t.match(/^GAPS\s*$/i);
+    });
+
+    const gapsList = document.getElementById('gapsList');
+    gapsList.innerHTML = '';
+    gapLines.forEach(line => {
+      const clean = line.replace(/^[-•*\d.]+\s*/, '').trim();
+      if (!clean) return;
+      const li = document.createElement('li');
+      li.className = 'gap-item';
+      li.innerHTML = '<div class="gap-dot"></div><span>' + clean + '</span>';
+      gapsList.appendChild(li);
+    });
+
+    document.getElementById('angleBox').textContent = angleRaw;
+
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('output').style.display = 'block';
+
+    const s1 = document.getElementById('stage1');
+    s1.classList.remove('active');
+    s1.classList.add('done');
+    s1.querySelector('.stage-num').innerHTML = '✓';
+
+    document.getElementById('stage2').classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goToStage3() {
+    alert('Stage 3 — Strengthen the Story — is coming soon. Your team has been notified of this brief and will be in touch.');
+  }
+
+  function resetForm() {
+    document.getElementById('formSection').style.display = 'block';
+    document.getElementById('output').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('errorBox').style.display = 'none';
+
+    ['stage1','stage2','stage3','stage4'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.remove('active', 'done');
+      el.querySelector('.stage-num').innerHTML = i + 1;
+      if (i === 0) el.classList.add('active');
+    });
+
+    ['company','contact','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
