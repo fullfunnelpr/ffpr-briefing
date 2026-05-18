@@ -1,41 +1,20 @@
-export const config = { runtime: 'edge' };
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-export default async function handler(req) {
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
+    return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  let body;
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  const { company, contact, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10 } = body;
+  const { company, contact, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10 } = req.body;
 
   if (!company || !q1 || !q2 || !q3) {
-    return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(400).json({ error: 'Missing required fields' });
   }
 
   const prompt = `You are a senior PR consultant at Full Funnel PR, an expert in news assessment and media strategy. A client has submitted a press release briefing form. Your job is to assess the strength of their news and tell them honestly what they have — and what they need.
@@ -90,18 +69,9 @@ Keep the whole response under 380 words. Be honest, direct, and professional. Do
     });
 
     const data = await anthropicRes.json();
+    return res.status(200).json(data);
 
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    });
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'API call failed', detail: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(500).json({ error: 'API call failed', detail: err.message });
   }
 }
