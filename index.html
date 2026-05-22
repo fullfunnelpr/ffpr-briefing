@@ -9,522 +9,128 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --orange:      #F04E23;
-      --orange-tint: #fff3ef;
-      --near-black:  #0d0d0d;
-      --dark:        #1a1a1a;
-      --mid:         #2e2e2e;
-      --muted:       #888888;
-      --off-white:   #f8f7f5;
-      --white:       #ffffff;
-      --border:      #e2e2e2;
-      --font-head:   'Archivo Black', sans-serif;
-      --font-sub:    'Archivo', sans-serif;
-      --font-body:   'Poppins', sans-serif;
-      --radius:      8px;
-      --radius-sm:   5px;
+      --orange: #F04E23; --orange-tint: #fff3ef;
+      --near-black: #0d0d0d; --dark: #1a1a1a; --mid: #2e2e2e;
+      --muted: #888888; --off-white: #f8f7f5; --white: #ffffff; --border: #e2e2e2;
+      --font-head: 'Archivo Black', sans-serif;
+      --font-sub: 'Archivo', sans-serif;
+      --font-body: 'Poppins', sans-serif;
+      --radius: 8px; --radius-sm: 5px;
     }
-
     html { font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--off-white); color: var(--dark); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 680px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
 
-    body {
-      font-family: var(--font-body);
-      background: var(--off-white);
-      color: var(--dark);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
+    /* Header */
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--orange); }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-mark { width: 36px; height: 36px; background: var(--orange); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-mark span { color: var(--white); font-family: var(--font-head); font-size: 12px; }
+    .logo-name { font-family: var(--font-sub); font-weight: 700; font-size: 14px; color: var(--near-black); }
+    .logo-sub { font-family: var(--font-body); font-size: 11px; color: var(--muted); font-weight: 300; }
 
-    .page {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 2.5rem 2rem 5rem;
-    }
-
-    /* ── Header ── */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 2px solid var(--orange);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-mark {
-      width: 36px;
-      height: 36px;
-      background: var(--orange);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .logo-mark span {
-      color: var(--white);
-      font-family: var(--font-head);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-    }
-
-    .logo-text { line-height: 1.2; }
-    .logo-name {
-      font-family: var(--font-sub);
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--near-black);
-      letter-spacing: 0.02em;
-    }
-    .logo-sub {
-      font-family: var(--font-body);
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
-    /* ── Stage tracker ── */
-    .stages {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .stage {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: var(--font-sub);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
+    /* Stages */
+    .stages { display: flex; align-items: center; margin-bottom: 2.5rem; }
+    .stage { display: flex; align-items: center; gap: 7px; font-family: var(--font-sub); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
     .stage.active { color: var(--dark); }
-    .stage.done { color: var(--muted); }
+    .stage-num { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: var(--font-sub); background: var(--white); flex-shrink: 0; }
+    .stage.active .stage-num { background: var(--orange); color: var(--white); border-color: var(--orange); }
+    .stage.done .stage-num { background: var(--off-white); color: var(--muted); border-color: var(--border); }
+    .stage-connector { flex: 1; height: 1px; background: var(--border); margin: 0 8px; }
 
-    .stage-num {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      font-family: var(--font-sub);
-      background: var(--white);
-      flex-shrink: 0;
-    }
+    /* Typography */
+    h1 { font-family: var(--font-head); font-size: 26px; color: var(--near-black); letter-spacing: -0.01em; margin-bottom: 0.5rem; line-height: 1.2; }
+    h2 { font-family: var(--font-sub); font-weight: 700; font-size: 18px; color: var(--near-black); margin-bottom: 0.4rem; }
+    .form-sub { font-family: var(--font-body); font-size: 14px; color: var(--mid); line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300; }
+    .section-label { font-family: var(--font-sub); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
 
-    .stage.active .stage-num {
-      background: var(--orange);
-      color: var(--white);
-      border-color: var(--orange);
-    }
-
-    .stage.done .stage-num {
-      background: var(--off-white);
-      color: var(--muted);
-      border-color: var(--border);
-    }
-
-    .stage-connector {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-      margin: 0 8px;
-    }
-
-    /* ── Form headings ── */
-    h1 {
-      font-family: var(--font-head);
-      font-size: 26px;
-      color: var(--near-black);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.5rem;
-      line-height: 1.2;
-    }
-
-    .form-sub {
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--mid);
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
-
-    .section-label {
-      font-family: var(--font-sub);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* ── Fields ── */
-    .row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 1.75rem;
-    }
-
+    /* Fields */
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1.75rem; }
     .field { margin-bottom: 1.75rem; }
-
-    .field-label {
-      display: block;
-      font-family: var(--font-sub);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--near-black);
-      margin-bottom: 3px;
-      letter-spacing: 0.01em;
-    }
-
-    .field-hint {
-      font-family: var(--font-body);
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 8px;
-      font-weight: 300;
-    }
-
-    .field-examples {
-      font-family: var(--font-body);
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.55;
-      margin-top: 6px;
-      font-style: italic;
-      font-weight: 300;
-    }
-
+    .field-label { display: block; font-family: var(--font-sub); font-size: 13px; font-weight: 700; color: var(--near-black); margin-bottom: 3px; }
+    .field-hint { font-family: var(--font-body); font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; font-weight: 300; }
+    .field-examples { font-family: var(--font-body); font-size: 12px; color: var(--muted); line-height: 1.55; margin-top: 6px; font-style: italic; font-weight: 300; }
     .req { color: var(--orange); margin-left: 2px; }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--dark);
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
-      transition: border-color 0.15s;
-      outline: none;
-      -webkit-appearance: none;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    textarea:focus {
-      border-color: var(--orange);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 88px;
-      line-height: 1.6;
-    }
-
+    input[type="text"], input[type="email"], textarea { width: 100%; font-family: var(--font-body); font-size: 14px; font-weight: 400; color: var(--dark); background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; transition: border-color 0.15s; outline: none; -webkit-appearance: none; }
+    input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-color: var(--orange); }
+    textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
     textarea.short { min-height: 64px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2.25rem 0; }
 
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2.25rem 0;
-    }
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 20px; border: none; border-radius: var(--radius); font-family: var(--font-sub); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; }
+    .btn-primary { background: var(--orange); color: var(--white); width: 100%; }
+    .btn-secondary { background: var(--near-black); color: var(--white); }
+    .btn:hover { opacity: 0.88; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .submit-note { font-family: var(--font-body); font-size: 12px; color: var(--muted); text-align: center; margin-top: 0.875rem; line-height: 1.6; font-weight: 300; }
 
-    /* ── Submit ── */
-    .submit-area { margin-top: 2rem; }
-
-    .submit-btn {
-      width: 100%;
-      padding: 14px 20px;
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      border-radius: var(--radius);
-      font-family: var(--font-sub);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: opacity 0.15s;
-    }
-
-    .submit-btn:hover { opacity: 0.88; }
-    .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-
-    .submit-note {
-      font-family: var(--font-body);
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 0.875rem;
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ── Progress ── */
+    /* Progress */
     .progress { display: none; margin-top: 1.5rem; }
+    .progress-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 0.75rem; }
+    .progress-fill { height: 100%; width: 0%; background: var(--orange); border-radius: 2px; transition: width 0.5s ease; }
+    .progress-text { font-family: var(--font-body); font-size: 12px; color: var(--muted); font-weight: 300; }
 
-    .progress-track {
-      height: 3px;
-      background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 0.75rem;
-    }
+    /* Error */
+    .error-box { display: none; background: #fff0ed; border: 1px solid #f5c0b0; border-left: 3px solid var(--orange); border-radius: var(--radius-sm); padding: 0.875rem 1rem; font-family: var(--font-body); font-size: 13px; color: var(--orange); margin-top: 1rem; line-height: 1.5; }
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--orange);
-      border-radius: 2px;
-      transition: width 0.5s ease;
-    }
-
-    .progress-text {
-      font-family: var(--font-body);
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
-    /* ── Error ── */
-    .error-box {
-      display: none;
-      background: #fff0ed;
-      border: 1px solid #f5c0b0;
-      border-left: 3px solid var(--orange);
-      border-radius: var(--radius-sm);
-      padding: 0.875rem 1rem;
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--orange);
-      margin-top: 1rem;
-      line-height: 1.5;
-    }
-
-    /* ── Output ── */
-    .output { display: none; }
-
-    .verdict-card {
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 1.75rem;
-      border: 1px solid var(--border);
-      background: var(--white);
-    }
-
+    /* Assessment output */
+    .verdict-card { border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.75rem; border: 1px solid var(--border); background: var(--white); }
     .verdict-card.hot { background: #fff0ed; border-color: #f5c0b0; border-left: 4px solid var(--orange); }
     .verdict-card.pot { background: #edf6f1; border-color: #b8ddc8; border-left: 4px solid #2a7a4f; }
     .verdict-card.bot { background: #faf4e0; border-color: #e0d09a; border-left: 4px solid #8a6a1a; }
     .verdict-card.not { background: var(--off-white); border-color: var(--border); border-left: 4px solid var(--muted); }
-
-    .verdict-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-family: var(--font-sub);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
-      margin-bottom: 0.875rem;
-    }
-
+    .verdict-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-sub); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 0.875rem; }
     .verdict-badge.hot { background: rgba(240,78,35,0.12); color: var(--orange); }
     .verdict-badge.pot { background: rgba(42,122,79,0.12); color: #2a7a4f; }
     .verdict-badge.bot { background: rgba(138,106,26,0.12); color: #8a6a1a; }
     .verdict-badge.not { background: rgba(136,136,136,0.12); color: var(--muted); }
-
-    .verdict-reason {
-      font-family: var(--font-sub);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--near-black);
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-    }
-
-    .verdict-detail {
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--mid);
-      line-height: 1.75;
-      font-weight: 300;
-    }
-
+    .verdict-reason { font-family: var(--font-sub); font-size: 16px; font-weight: 700; color: var(--near-black); margin-bottom: 0.5rem; line-height: 1.4; }
+    .verdict-detail { font-family: var(--font-body); font-size: 14px; color: var(--mid); line-height: 1.75; font-weight: 300; }
     .output-block { margin-bottom: 2rem; }
-
-    .output-block-label {
-      font-family: var(--font-sub);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 0.875rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .output-body {
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--dark);
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
+    .output-block-label { font-family: var(--font-sub); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.875rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .output-body { font-family: var(--font-body); font-size: 14px; color: var(--dark); line-height: 1.8; font-weight: 300; }
     .gaps-list { list-style: none; }
-
-    .gap-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 11px 0;
-      border-bottom: 1px solid var(--border);
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--dark);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
+    .gap-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); font-family: var(--font-body); font-size: 14px; color: var(--dark); line-height: 1.6; font-weight: 300; }
     .gap-item:last-child { border-bottom: none; }
+    .gap-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 6px; }
+    .angle-box { background: var(--orange-tint); border-radius: var(--radius); padding: 1.25rem 1.5rem; font-family: var(--font-body); font-size: 15px; color: var(--dark); line-height: 1.7; font-style: italic; border-left: 3px solid var(--orange); }
 
-    .gap-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-      flex-shrink: 0;
-      margin-top: 6px;
-    }
+    /* Stage 2 gap fields */
+    .gap-field { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
+    .gap-field-label { font-family: var(--font-sub); font-size: 12px; font-weight: 700; color: var(--near-black); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .gap-field-tag { font-family: var(--font-sub); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); background: var(--orange-tint); padding: 2px 8px; border-radius: 10px; }
+    .gap-field textarea { margin-top: 6px; min-height: 60px; }
 
-    .angle-box {
-      background: var(--orange-tint);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      font-family: var(--font-body);
-      font-size: 15px;
-      color: var(--dark);
-      line-height: 1.7;
-      font-style: italic;
-      border-left: 3px solid var(--orange);
-    }
+    /* Draft output */
+    .draft-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .draft-card pre { font-family: var(--font-body); font-size: 14px; color: var(--dark); line-height: 1.85; white-space: pre-wrap; font-weight: 300; }
+    .covering-note { background: var(--orange-tint); border-left: 3px solid var(--orange); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; font-family: var(--font-body); font-size: 14px; color: var(--dark); line-height: 1.75; font-weight: 300; }
 
-    /* ── Next panel ── */
-    .next-panel {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.25rem;
-      background: var(--near-black);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      margin-top: 2rem;
-    }
+    /* Success banner */
+    .success-banner { background: #edf6f1; border: 1px solid #b8ddc8; border-left: 4px solid #2a7a4f; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-family: var(--font-body); font-size: 14px; color: #1a4a2e; line-height: 1.6; font-weight: 300; }
+    .success-banner strong { font-family: var(--font-sub); font-weight: 700; }
 
-    .next-panel-text { flex: 1; }
+    /* Next / dark panel */
+    .dark-panel { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; background: var(--near-black); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-top: 2rem; }
+    .dark-panel-text { flex: 1; }
+    .dark-panel-title { font-family: var(--font-sub); font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .dark-panel-sub { font-family: var(--font-body); font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; font-weight: 300; }
+    .dark-panel .btn { background: var(--orange); color: var(--white); width: auto; padding: 10px 18px; }
 
-    .next-panel-title {
-      font-family: var(--font-sub);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 3px;
-      letter-spacing: 0.01em;
-    }
-
-    .next-panel-sub {
-      font-family: var(--font-body);
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.5;
-      font-weight: 300;
-    }
-
-    .next-btn {
-      flex-shrink: 0;
-      padding: 10px 18px;
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-sub);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      transition: opacity 0.15s;
-    }
-
-    .next-btn:hover { opacity: 0.88; }
-
-    .reset-link {
-      display: block;
-      text-align: center;
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 1.25rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-weight: 300;
-    }
+    .reset-link { display: block; text-align: center; font-family: var(--font-body); font-size: 13px; color: var(--muted); margin-top: 1.25rem; cursor: pointer; background: none; border: none; text-decoration: underline; text-underline-offset: 3px; font-weight: 300; }
 
     @media (max-width: 540px) {
       .page { padding: 1.75rem 1.25rem 4rem; }
       .row-2 { grid-template-columns: 1fr; }
       .stage-label-text { display: none; }
-      .next-panel { flex-direction: column; align-items: flex-start; }
+      .dark-panel { flex-direction: column; align-items: flex-start; }
       h1 { font-size: 22px; }
     }
   </style>
 </head>
 <body>
-
 <div class="page">
 
   <header class="header">
@@ -538,29 +144,17 @@
   </header>
 
   <div class="stages" id="stages">
-    <div class="stage active" id="stage1">
-      <div class="stage-num">1</div>
-      <span class="stage-label-text">Tell us the news</span>
-    </div>
+    <div class="stage active" id="stage1"><div class="stage-num">1</div><span class="stage-label-text">Tell us the news</span></div>
     <div class="stage-connector"></div>
-    <div class="stage" id="stage2">
-      <div class="stage-num">2</div>
-      <span class="stage-label-text">Assessment</span>
-    </div>
+    <div class="stage" id="stage2"><div class="stage-num">2</div><span class="stage-label-text">Assessment</span></div>
     <div class="stage-connector"></div>
-    <div class="stage" id="stage3">
-      <div class="stage-num">3</div>
-      <span class="stage-label-text">Strengthen</span>
-    </div>
+    <div class="stage" id="stage3"><div class="stage-num">3</div><span class="stage-label-text">Strengthen</span></div>
     <div class="stage-connector"></div>
-    <div class="stage" id="stage4">
-      <div class="stage-num">4</div>
-      <span class="stage-label-text">Draft &amp; playbook</span>
-    </div>
+    <div class="stage" id="stage4"><div class="stage-num">4</div><span class="stage-label-text">Draft</span></div>
   </div>
 
-  <!-- FORM -->
-  <div id="formSection">
+  <!-- ═══ STAGE 1: FORM ═══ -->
+  <div id="s1">
     <h1>Tell us about your news</h1>
     <p class="form-sub">Answer the questions below — the more detail you give, the stronger the story we can build. There are no right or wrong answers at this stage.</p>
 
@@ -574,7 +168,6 @@
         <input type="text" id="contact" placeholder="e.g. Jane Smith" autocomplete="name" />
       </div>
     </div>
-
     <div class="field" style="margin-top:1rem;">
       <label class="field-label" for="email">Your email address <span class="req">*</span></label>
       <input type="email" id="email" placeholder="e.g. jane@acmeltd.com" autocomplete="email" />
@@ -588,23 +181,20 @@
       <div class="field-hint">Describe the time-bound event being announced. What person, company, or product did what thing, and when?</div>
       <textarea id="q1" placeholder="e.g. Acme Ltd has today signed a partnership with HSBC to offer its invoice finance product to HSBC's SME customers across the UK, launching in Q3 2026."></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q2">Q2 — Who is affected, and how? <span class="req">*</span></label>
       <div class="field-hint">Who does this impact — and can you put a number on it? People affected, money involved, time saved, scale of change.</div>
       <textarea id="q2" placeholder="e.g. Around 2,000 UK SMEs who currently wait 60+ days for invoice payments will gain access to same-day financing from Q3."></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q3">Q3 — What's the before-and-after? <span class="req">*</span></label>
       <div class="field-hint">What was the situation before this happened? What changes now, and what comes next? Give us the arc.</div>
-      <textarea id="q3" placeholder="e.g. Previously Acme operated direct-to-SME only. This is the company's first banking partnership. The UK SME finance gap is estimated at £22bn — HSBC reaches a market Acme couldn't reach alone."></textarea>
+      <textarea id="q3" placeholder="e.g. Previously Acme operated direct-to-SME only. This is the company's first banking partnership. The UK SME finance gap is estimated at £22bn."></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q4">Q4 — Are any well-known names involved?</label>
-      <div class="field-hint">Companies, brands, individuals — anyone with a media profile, social following, or market authority. Even if they're peripheral to the story.</div>
-      <textarea class="short" id="q4" placeholder="e.g. HSBC (partner). Also backed by Innovate UK. CEO Jane Smith has been profiled in the FT."></textarea>
+      <div class="field-hint">Companies, brands, individuals — anyone with a media profile, social following, or market authority.</div>
+      <textarea class="short" id="q4" placeholder="e.g. HSBC (partner). Backed by Innovate UK. CEO Jane Smith has been profiled in the FT."></textarea>
     </div>
 
     <hr class="divider" />
@@ -612,22 +202,19 @@
 
     <div class="field">
       <label class="field-label" for="q5">Q5 — What thread does this build on?</label>
-      <div class="field-hint">What's already on record that this news continues or extends? Is this the first in a series, a follow-up to a previous announcement, or something your company has said publicly before?</div>
-      <div class="field-examples">e.g. "Third partnership this year, following Barclays and Lloyds" / "We predicted this in our 2024 SME Finance Report" / "First partnership — nothing on record before this."</div>
+      <div class="field-hint">What's already on record that this news continues or extends?</div>
+      <div class="field-examples">e.g. "Third partnership this year" / "First partnership — nothing on record before this."</div>
       <textarea class="short" id="q5" placeholder="What already exists that this news builds on?"></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q6">Q6 — Is there a standout angle?</label>
-      <div class="field-hint">A superlative or unusual twist that makes this stand out. Think: firsts, lasts, biggests, smallests, fastests, furthests, or a surprising contrast.</div>
-      <div class="field-examples">e.g. "First fintech integrated with HSBC's SME platform" / "Fastest invoice turnaround in the UK at 4 hours" / "12-person startup partnering with the UK's largest business bank."</div>
+      <div class="field-hint">A superlative or unusual twist — firsts, lasts, biggests, fastests, or a surprising contrast.</div>
       <textarea class="short" id="q6" placeholder="What makes this stand out from a competitor making the same announcement?"></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q7">Q7 — What topical conversations does this connect to?</label>
-      <div class="field-hint">Industry themes, news hooks, recent media coverage, or competitor activity that gives this story wider context.</div>
-      <textarea class="short" id="q7" placeholder="e.g. #SMEfinance, access to capital debate. Bank of England SME lending report (March 2026). Competitor Fundsmith recently closed their SME product."></textarea>
+      <div class="field-hint">Industry themes, news hooks, recent media coverage, or competitor activity.</div>
+      <textarea class="short" id="q7" placeholder="e.g. #SMEfinance. Bank of England SME lending report (March 2026)."></textarea>
     </div>
 
     <hr class="divider" />
@@ -635,41 +222,41 @@
 
     <div class="field">
       <label class="field-label" for="q8">Q8 — Who will be quoted?</label>
-      <div class="field-hint">Spokespeople from your company and any third parties. Include job titles. Who has final approval on the release?</div>
-      <textarea class="short" id="q8" placeholder="e.g. Jane Smith, CEO Acme (quote + final approver). John Brown, Head of SME Banking, HSBC (partner quote)."></textarea>
+      <div class="field-hint">Spokespeople and any third parties. Include job titles and who has final approval.</div>
+      <textarea class="short" id="q8" placeholder="e.g. Jane Smith, CEO Acme (final approver). John Brown, Head of SME Banking, HSBC (partner quote)."></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q9">Q9 — Do you have photography?</label>
-      <div class="field-hint">Portrait-style images of the business leader are essential for editorial coverage. Corporate headshots don't work — we need natural, characterful portraits.</div>
-      <textarea class="short" id="q9" placeholder="e.g. Hi-res lifestyle portrait of Jane Smith (link). HSBC logo PNG. No product imagery yet."></textarea>
+      <div class="field-hint">Portrait-style images of the business leader are essential. Corporate headshots don't work.</div>
+      <textarea class="short" id="q9" placeholder="e.g. Hi-res portrait of Jane Smith (link). HSBC logo PNG."></textarea>
     </div>
-
     <div class="field">
       <label class="field-label" for="q10">Q10 — Any supporting data?</label>
-      <div class="field-hint">Third-party stats or market data that contextualise the significance of the news. Include a source link where possible.</div>
-      <textarea class="short" id="q10" placeholder="e.g. YouGov (2024): 67% of UK SMEs cite cash flow as their #1 challenge. yougov.co.uk/reports/..."></textarea>
+      <div class="field-hint">Third-party stats or market data. Include a source link where possible.</div>
+      <textarea class="short" id="q10" placeholder="e.g. YouGov (2024): 67% of UK SMEs cite cash flow as their #1 challenge."></textarea>
     </div>
 
-    <div class="submit-area">
-      <button class="submit-btn" id="submitBtn" onclick="submitBrief()">
-        Submit for assessment &rarr;
-      </button>
-      <p class="submit-note">We'll analyse your answers and return an honest impact assessment — what's strong, what could be stronger, and our recommended approach.</p>
-      <div class="error-box" id="errorBox"></div>
+    <div style="margin-top:2rem;">
+      <button class="btn btn-primary" id="s1Btn" onclick="submitStage1()">Submit for assessment &rarr;</button>
+      <p class="submit-note">We'll analyse your answers and return an honest impact assessment — what's strong, what could be stronger.</p>
+      <div class="error-box" id="s1Error"></div>
     </div>
-
-    <div class="progress" id="progress">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-text" id="progressText">Reading your brief...</div>
+    <div class="progress" id="s1Progress">
+      <div class="progress-track"><div class="progress-fill" id="s1Fill"></div></div>
+      <div class="progress-text" id="s1Text">Reading your brief...</div>
     </div>
   </div>
 
-  <!-- OUTPUT -->
-  <div class="output" id="output">
+  <!-- ═══ STAGE 2: ASSESSMENT + GAP FILLING ═══ -->
+  <div id="s2" style="display:none;">
+
+    <div style="margin-bottom:2rem;">
+      <h2>Your impact assessment</h2>
+      <p class="form-sub" style="margin-bottom:0;">Here's our honest read of your story. Scroll down to strengthen it before we produce the draft.</p>
+    </div>
 
     <div class="output-block">
-      <div class="output-block-label">Impact assessment</div>
+      <div class="output-block-label">Verdict</div>
       <div class="verdict-card" id="verdictCard">
         <div class="verdict-badge" id="verdictBadge"></div>
         <div class="verdict-reason" id="verdictReason"></div>
@@ -692,227 +279,291 @@
       <div class="angle-box" id="angleBox"></div>
     </div>
 
-    <div class="next-panel">
-      <div class="next-panel-text">
-        <div class="next-panel-title">Ready to strengthen the story?</div>
-        <div class="next-panel-sub">Step 3 lets you address the gaps above — then we produce a full draft and tailored playbook.</div>
-      </div>
-      <button class="next-btn" onclick="goToStage3()">
-        Continue &rarr;
-      </button>
+    <hr class="divider" />
+    <div class="section-label">Strengthen the story</div>
+    <p class="form-sub">Address as many of the gaps above as you can. Leave blank anything you don't have yet — we'll note what's missing in the draft.</p>
+
+    <div id="gapFields"></div>
+
+    <div style="margin-top:1.5rem;">
+      <button class="btn btn-primary" id="s2Btn" onclick="submitStage2()">Generate draft release &rarr;</button>
+      <p class="submit-note">Claude will write a full press release draft. We'll send it to Matt for review before it reaches you.</p>
+      <div class="error-box" id="s2Error"></div>
+    </div>
+    <div class="progress" id="s2Progress">
+      <div class="progress-track"><div class="progress-fill" id="s2Fill"></div></div>
+      <div class="progress-text" id="s2Text">Drafting your press release...</div>
     </div>
 
-    <button class="reset-link" onclick="resetForm()">Start a new brief</button>
+    <div style="margin-top:1.5rem; text-align:center;">
+      <button class="reset-link" onclick="goBack()">&#8592; Go back and edit your answers</button>
+    </div>
+  </div>
+
+  <!-- ═══ STAGE 3/4: DRAFT + CONFIRMATION ═══ -->
+  <div id="s3" style="display:none;">
+
+    <div style="margin-bottom:2rem;">
+      <h2>Draft ready</h2>
+      <p class="form-sub" style="margin-bottom:0;">The draft below has been sent to Matt as a Gmail draft for review. He'll be in touch shortly.</p>
+    </div>
+
+    <div class="success-banner" id="successBanner">
+      <strong>Draft sent to Matt's inbox.</strong> He'll review it and send it to you at <span id="clientEmailConfirm"></span> once approved.
+    </div>
+
+    <div class="output-block">
+      <div class="output-block-label">Covering note for Matt</div>
+      <div class="covering-note" id="coveringNote"></div>
+    </div>
+
+    <div class="output-block">
+      <div class="output-block-label">Press release draft</div>
+      <div class="draft-card"><pre id="draftBody"></pre></div>
+    </div>
+
+    <div class="dark-panel">
+      <div class="dark-panel-text">
+        <div class="dark-panel-title">What happens next</div>
+        <div class="dark-panel-sub">Matt will review the draft, make any edits, and send it to you within one working day. Stage 5 — the playbook — follows once the release is approved.</div>
+      </div>
+    </div>
+
+    <button class="reset-link" onclick="resetAll()">Start a new brief</button>
   </div>
 
 </div>
 
 <script>
-  function getVal(id) {
-    return document.getElementById(id).value.trim();
-  }
+  // ── State ──
+  let state = {
+    company:'', contact:'', email:'',
+    q1:'',q2:'',q3:'',q4:'',q5:'',q6:'',q7:'',q8:'',q9:'',q10:'',
+    verdict:'', angle:'', gapLabels:[]
+  };
 
-  async function submitBrief() {
-    const company = getVal('company');
-    const email   = getVal('email');
-    const q1      = getVal('q1');
-    const q2      = getVal('q2');
-    const q3      = getVal('q3');
+  function gv(id){ return document.getElementById(id).value.trim(); }
 
-    const errorBox = document.getElementById('errorBox');
-    errorBox.style.display = 'none';
-
-    if (!company || !email || !q1 || !q2 || !q3) {
-      errorBox.textContent = 'Please complete at least: company name, email address, and questions 1, 2, and 3 before submitting.';
-      errorBox.style.display = 'block';
-      return;
-    }
-
-    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRx.test(email)) {
-      errorBox.textContent = 'Please enter a valid email address.';
-      errorBox.style.display = 'block';
-      return;
-    }
-
-    const btn      = document.getElementById('submitBtn');
-    const progress = document.getElementById('progress');
-    const fill     = document.getElementById('progressFill');
-    const text     = document.getElementById('progressText');
-
-    btn.disabled = true;
-    progress.style.display = 'block';
-
-    const steps = [
-      [12, 'Reading your brief...'],
-      [30, 'Checking for impact numbers and famous names...'],
-      [52, 'Assessing news strength...'],
-      [70, 'Identifying gaps...'],
-      [88, 'Building your assessment...']
-    ];
-
-    let si = 0;
-    const ticker = setInterval(() => {
-      if (si < steps.length) {
-        fill.style.width = steps[si][0] + '%';
-        text.textContent = steps[si][1];
-        si++;
-      }
-    }, 900);
-
-    const payload = {
-      company,
-      contact: getVal('contact'),
-      email,
-      q1, q2, q3,
-      q4:  getVal('q4'),
-      q5:  getVal('q5'),
-      q6:  getVal('q6'),
-      q7:  getVal('q7'),
-      q8:  getVal('q8'),
-      q9:  getVal('q9'),
-      q10: getVal('q10'),
-    };
-
-    try {
-      const res = await fetch('/api/assess', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      clearInterval(ticker);
-      fill.style.width = '100%';
-      text.textContent = 'Assessment ready.';
-
-      const rawText = await res.text();
-
-      let responseText = '';
-      try {
-        const data = JSON.parse(rawText);
-        if (data.content && Array.isArray(data.content)) {
-          responseText = data.content.find(b => b.type === 'text')?.text || '';
-        } else if (data.error) {
-          throw new Error('API error: ' + (data.error.message || JSON.stringify(data.error)));
-        }
-      } catch (parseErr) {
-        console.error('Parse error:', parseErr);
-        console.error('Raw response:', rawText.slice(0, 500));
-        throw new Error('Could not parse response: ' + parseErr.message);
-      }
-
-      if (!responseText) throw new Error('Empty response from assessment engine.');
-
-      setTimeout(() => renderOutput(responseText), 400);
-
-    } catch (err) {
-      clearInterval(ticker);
-      btn.disabled = false;
-      progress.style.display = 'none';
-      fill.style.width = '0%';
-      errorBox.textContent = 'Error: ' + err.message;
-      errorBox.style.display = 'block';
-      console.error('Full error:', err);
-    }
-  }
-
-  function parseSection(text, label, nextLabel) {
-    const start = text.indexOf(label);
-    if (start === -1) return '';
-    let content = text.slice(start + label.length);
-    if (nextLabel) {
-      const end = content.indexOf(nextLabel);
-      if (end !== -1) content = content.slice(0, end);
-    }
-    return content.replace(/^\s*[\n\r:]+/, '').trim();
-  }
-
-  function renderOutput(text) {
-    const verdictRaw   = parseSection(text, 'VERDICT', 'STRENGTHS');
-    const strengthsRaw = parseSection(text, 'STRENGTHS', 'GAPS');
-    const gapsRaw      = parseSection(text, 'GAPS', 'PROVISIONAL ANGLE');
-    const angleRaw     = parseSection(text, 'PROVISIONAL ANGLE', null);
-
-    const lines       = verdictRaw.split('\n').map(l => l.trim()).filter(Boolean);
-    const verdictLine = lines[0] || '';
-    const verdictRest = lines.slice(1).join(' ').trim();
-
-    let type  = 'pot';
-    let label = '🪴 POT news';
-    if (verdictLine.startsWith('🔥')) { type = 'hot'; label = '🔥 HOT news'; }
-    else if (verdictLine.startsWith('🤖')) { type = 'bot'; label = '🤖 BOT news'; }
-    else if (verdictLine.startsWith('🤔')) { type = 'not'; label = '🤔 NOT news'; }
-
-    const reasonText = verdictLine.replace(/^[🔥🪴🤖🤔]\s*(HOT|POT|BOT|NOT):\s*/i, '').trim();
-
-    const card = document.getElementById('verdictCard');
-    card.className = 'verdict-card ' + type;
-
-    const badge = document.getElementById('verdictBadge');
-    badge.textContent = label;
-    badge.className = 'verdict-badge ' + type;
-
-    document.getElementById('verdictReason').textContent = reasonText;
-    document.getElementById('verdictDetail').textContent = verdictRest;
-    document.getElementById('strengthsBody').textContent = strengthsRaw;
-
-    const gapLines = gapsRaw.split('\n').filter(l => {
-      const t = l.trim();
-      return t.length > 0 && !t.match(/^GAPS\s*$/i);
+  function setStage(n){
+    ['stage1','stage2','stage3','stage4'].forEach((id,i)=>{
+      const el=document.getElementById(id);
+      el.classList.remove('active','done');
+      el.querySelector('.stage-num').innerHTML = i+1;
+      if(i<n-1){ el.classList.add('done'); el.querySelector('.stage-num').innerHTML='&#10003;'; }
+      if(i===n-1) el.classList.add('active');
     });
+  }
 
-    const gapsList = document.getElementById('gapsList');
-    gapsList.innerHTML = '';
-    gapLines.forEach(line => {
-      const clean = line.replace(/^[-•*\d.]+\s*/, '').trim();
-      if (!clean) return;
-      const li = document.createElement('li');
-      li.className = 'gap-item';
-      li.innerHTML = '<div class="gap-dot"></div><span>' + clean + '</span>';
+  function animateProgress(fillId, textId, steps, cb){
+    const fill=document.getElementById(fillId), text=document.getElementById(textId);
+    let si=0;
+    const t=setInterval(()=>{
+      if(si<steps.length){ fill.style.width=steps[si][0]+'%'; text.textContent=steps[si][1]; si++; }
+    },900);
+    return t;
+  }
+
+  // ── STAGE 1 SUBMIT ──
+  async function submitStage1(){
+    const company=gv('company'), email=gv('email'), q1=gv('q1'), q2=gv('q2'), q3=gv('q3');
+    const err=document.getElementById('s1Error');
+    err.style.display='none';
+    if(!company||!email||!q1||!q2||!q3){
+      err.textContent='Please complete: company name, email address, and questions 1–3.';
+      err.style.display='block'; return;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      err.textContent='Please enter a valid email address.';
+      err.style.display='block'; return;
+    }
+    Object.assign(state,{
+      company, contact:gv('contact'), email,
+      q1, q2, q3, q4:gv('q4'), q5:gv('q5'), q6:gv('q6'),
+      q7:gv('q7'), q8:gv('q8'), q9:gv('q9'), q10:gv('q10')
+    });
+    const btn=document.getElementById('s1Btn');
+    btn.disabled=true;
+    document.getElementById('s1Progress').style.display='block';
+    const ticker=animateProgress('s1Fill','s1Text',[
+      [12,'Reading your brief...'],[30,'Checking impact numbers...'],[52,'Assessing news strength...'],[70,'Identifying gaps...'],[88,'Building assessment...']
+    ]);
+    try{
+      const res=await fetch('/api/assess',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)});
+      clearInterval(ticker);
+      document.getElementById('s1Fill').style.width='100%';
+      document.getElementById('s1Text').textContent='Assessment ready.';
+      const raw=await res.text();
+      let text='';
+      try{ const d=JSON.parse(raw); text=d.content?.find(b=>b.type==='text')?.text||''; if(d.error) throw new Error(JSON.stringify(d.error)); }
+      catch(e){ throw new Error('Parse error: '+e.message); }
+      if(!text) throw new Error('Empty response.');
+      setTimeout(()=>renderAssessment(text),400);
+    }catch(e){
+      clearInterval(ticker);
+      btn.disabled=false;
+      document.getElementById('s1Progress').style.display='none';
+      err.textContent='Error: '+e.message; err.style.display='block';
+    }
+  }
+
+  function parseSection(text,label,next){
+    const s=text.indexOf(label); if(s===-1) return '';
+    let c=text.slice(s+label.length);
+    if(next){ const e=c.indexOf(next); if(e!==-1) c=c.slice(0,e); }
+    return c.replace(/^\s*[\n\r:]+/,'').trim();
+  }
+
+  function renderAssessment(text){
+    const vRaw=parseSection(text,'VERDICT','STRENGTHS');
+    const str=parseSection(text,'STRENGTHS','GAPS');
+    const gaps=parseSection(text,'GAPS','PROVISIONAL ANGLE');
+    const angle=parseSection(text,'PROVISIONAL ANGLE',null);
+
+    const lines=vRaw.split('\n').map(l=>l.trim()).filter(Boolean);
+    const vLine=lines[0]||'', vRest=lines.slice(1).join(' ').trim();
+    let type='pot', label='🪴 POT news';
+    if(vLine.startsWith('🔥')){type='hot';label='🔥 HOT news';}
+    else if(vLine.startsWith('🤖')){type='bot';label='🤖 BOT news';}
+    else if(vLine.startsWith('🤔')){type='not';label='🤔 NOT news';}
+
+    const reason=vLine.replace(/^[🔥🪴🤖🤔]\s*(HOT|POT|BOT|NOT):\s*/i,'').trim();
+    state.verdict=label+': '+reason;
+    state.angle=angle;
+
+    const card=document.getElementById('verdictCard'); card.className='verdict-card '+type;
+    const badge=document.getElementById('verdictBadge'); badge.textContent=label; badge.className='verdict-badge '+type;
+    document.getElementById('verdictReason').textContent=reason;
+    document.getElementById('verdictDetail').textContent=vRest;
+    document.getElementById('strengthsBody').textContent=str;
+    document.getElementById('angleBox').textContent=angle;
+
+    const gapLines=gaps.split('\n').filter(l=>l.trim()&&!l.trim().match(/^GAPS\s*$/i));
+    const gapsList=document.getElementById('gapsList'); gapsList.innerHTML='';
+    state.gapLabels=[];
+    gapLines.forEach(line=>{
+      const clean=line.replace(/^[-•*\d.]+\s*/,'').trim(); if(!clean) return;
+      state.gapLabels.push(clean);
+      const li=document.createElement('li'); li.className='gap-item';
+      li.innerHTML='<div class="gap-dot"></div><span>'+clean+'</span>';
       gapsList.appendChild(li);
     });
 
-    document.getElementById('angleBox').textContent = angleRaw;
-
-    document.getElementById('formSection').style.display = 'none';
-    document.getElementById('output').style.display = 'block';
-
-    const s1 = document.getElementById('stage1');
-    s1.classList.remove('active');
-    s1.classList.add('done');
-    s1.querySelector('.stage-num').innerHTML = '&#10003;';
-    document.getElementById('stage2').classList.add('active');
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goToStage3() {
-    alert('Stage 3 — Strengthen the Story — is coming soon. Your team has been notified of this brief and will be in touch.');
-  }
-
-  function resetForm() {
-    document.getElementById('formSection').style.display = 'block';
-    document.getElementById('output').style.display = 'none';
-    document.getElementById('progress').style.display = 'none';
-    document.getElementById('progressFill').style.width = '0%';
-    document.getElementById('submitBtn').disabled = false;
-    document.getElementById('errorBox').style.display = 'none';
-
-    ['stage1','stage2','stage3','stage4'].forEach((id, i) => {
-      const el = document.getElementById(id);
-      el.classList.remove('active', 'done');
-      el.querySelector('.stage-num').innerHTML = i + 1;
-      if (i === 0) el.classList.add('active');
+    // Build gap fields for Stage 2
+    const gf=document.getElementById('gapFields'); gf.innerHTML='';
+    state.gapLabels.forEach((gap,i)=>{
+      const colonIdx=gap.indexOf(':');
+      const tag=colonIdx>-1?gap.slice(0,colonIdx).trim():('Gap '+(i+1));
+      const desc=colonIdx>-1?gap.slice(colonIdx+1).trim():gap;
+      gf.innerHTML+=`<div class="gap-field">
+        <div class="gap-field-label"><span class="gap-field-tag">${tag}</span>${desc}</div>
+        <textarea class="short" id="gap_${i}" placeholder="Add any information you have on this..."></textarea>
+      </div>`;
     });
 
-    ['company','contact','email','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
+    document.getElementById('s1').style.display='none';
+    document.getElementById('s2').style.display='block';
+    setStage(2);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // ── STAGE 2 SUBMIT ──
+  async function submitStage2(){
+    const stage2gaps={};
+    state.gapLabels.forEach((gap,i)=>{
+      const val=document.getElementById('gap_'+i)?.value.trim()||'';
+      if(val) stage2gaps[gap]=val;
     });
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const stage1Summary=`Q1: ${state.q1}\nQ2: ${state.q2}\nQ3: ${state.q3}\nQ4: ${state.q4||'Not provided'}\nQ5 (thread): ${state.q5||'Not provided'}\nQ6 (angle): ${state.q6||'Not provided'}\nQ7 (themes): ${state.q7||'Not provided'}\nQ8 (spokespeople): ${state.q8||'Not provided'}\nQ9 (photography): ${state.q9||'Not provided'}\nQ10 (data): ${state.q10||'Not provided'}`;
+
+    const btn=document.getElementById('s2Btn');
+    const err=document.getElementById('s2Error');
+    err.style.display='none';
+    btn.disabled=true;
+    document.getElementById('s2Progress').style.display='block';
+
+    const ticker=animateProgress('s2Fill','s2Text',[
+      [10,'Reading all briefing answers...'],[25,'Applying Full Funnel PR method...'],[45,'Writing headline and standfirst...'],[62,'Drafting body copy and quotes...'],[80,'Polishing and checking...'],[92,'Almost there...']
+    ]);
+
+    try{
+      const res=await fetch('/api/draft',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          company:state.company, contact:state.contact, email:state.email,
+          verdict:state.verdict, angle:state.angle,
+          stage1:stage1Summary, stage2gaps
+        })
+      });
+      clearInterval(ticker);
+      document.getElementById('s2Fill').style.width='100%';
+      document.getElementById('s2Text').textContent='Draft ready.';
+      const raw=await res.text();
+      let draftText='';
+      try{ const d=JSON.parse(raw); draftText=d.draft||''; if(d.error) throw new Error(JSON.stringify(d.error)); }
+      catch(e){ throw new Error('Parse error: '+e.message); }
+      if(!draftText) throw new Error('Empty draft response.');
+      setTimeout(()=>renderDraft(draftText, stage1Summary, stage2gaps),400);
+    }catch(e){
+      clearInterval(ticker);
+      btn.disabled=false;
+      document.getElementById('s2Progress').style.display='none';
+      err.textContent='Error: '+e.message; err.style.display='block';
+    }
+  }
+
+  function renderDraft(text, stage1Summary, stage2gaps){
+    const coveringRaw=parseSection(text,'COVERING NOTE','PRESS RELEASE DRAFT');
+    const draftRaw=parseSection(text,'PRESS RELEASE DRAFT',null);
+
+    document.getElementById('coveringNote').textContent=coveringRaw;
+    document.getElementById('draftBody').textContent=draftRaw;
+    document.getElementById('clientEmailConfirm').textContent=state.email;
+
+    // Build Gmail draft via the notify endpoint
+    sendGmailDraft(coveringRaw, draftRaw, stage1Summary, stage2gaps);
+
+    document.getElementById('s2').style.display='none';
+    document.getElementById('s3').style.display='block';
+    setStage(4);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  async function sendGmailDraft(coveringNote, draft, stage1Summary, stage2gaps){
+    const gapSummary=Object.entries(stage2gaps||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    try{
+      await fetch('/api/notify',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          company:state.company, contact:state.contact,
+          clientEmail:state.email, verdict:state.verdict,
+          coveringNote, draft, stage1Summary, gapSummary
+        })
+      });
+    }catch(e){ console.error('Gmail draft failed:',e); }
+  }
+
+  function goBack(){
+    document.getElementById('s2').style.display='none';
+    document.getElementById('s1').style.display='block';
+    setStage(1);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function resetAll(){
+    ['company','contact','email','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.value='';
+    });
+    state={company:'',contact:'',email:'',q1:'',q2:'',q3:'',q4:'',q5:'',q6:'',q7:'',q8:'',q9:'',q10:'',verdict:'',angle:'',gapLabels:[]};
+    ['s1Progress','s2Progress'].forEach(id=>{ document.getElementById(id).style.display='none'; });
+    ['s1Fill','s2Fill'].forEach(id=>{ document.getElementById(id).style.width='0%'; });
+    ['s1Btn','s2Btn'].forEach(id=>{ document.getElementById(id).disabled=false; });
+    document.getElementById('s3').style.display='none';
+    document.getElementById('s2').style.display='none';
+    document.getElementById('s1').style.display='block';
+    setStage(1);
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 </script>
-
 </body>
 </html>
