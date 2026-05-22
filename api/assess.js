@@ -64,12 +64,26 @@ Keep the whole response under 380 words. Be honest, direct, and professional. Do
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
+        stream: false,
         messages: [{ role: 'user', content: prompt }],
       }),
     });
 
-    const data = await anthropicRes.json();
-    return res.status(200).json(data);
+    // Read as text first to safely inspect before parsing
+    const rawText = await anthropicRes.text();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(rawText);
+    } catch (e) {
+      return res.status(500).json({
+        error: 'Failed to parse Anthropic response',
+        raw: rawText.slice(0, 500),
+      });
+    }
+
+    // Return only the clean parsed response
+    return res.status(200).json(parsed);
 
   } catch (err) {
     return res.status(500).json({ error: 'API call failed', detail: err.message });
