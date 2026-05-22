@@ -6,40 +6,33 @@
   <title>Press Release Briefing — Full Funnel PR</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0f0f0f;
-      --white: #fafaf8;
-      --off-white: #f4f3ef;
-      --mid: #e8e6e0;
-      --muted: #9e9b94;
-      --text: #1a1a18;
-      --text-secondary: #6b6860;
-      --border: rgba(0,0,0,0.1);
-      --border-strong: rgba(0,0,0,0.2);
-      --hot: #c94f2a;
-      --hot-bg: #fdf0ec;
-      --pot: #2a7a4f;
-      --pot-bg: #edf6f1;
-      --bot: #8a6a1a;
-      --bot-bg: #faf4e0;
-      --not: #5a5a5a;
-      --not-bg: #f0f0ee;
-      --radius: 10px;
-      --radius-sm: 6px;
-      --font: 'DM Sans', system-ui, sans-serif;
-      --font-mono: 'DM Mono', monospace;
+      --orange:      #F04E23;
+      --orange-tint: #fff3ef;
+      --near-black:  #0d0d0d;
+      --dark:        #1a1a1a;
+      --mid:         #2e2e2e;
+      --muted:       #888888;
+      --off-white:   #f8f7f5;
+      --white:       #ffffff;
+      --border:      #e2e2e2;
+      --font-head:   'Archivo Black', sans-serif;
+      --font-sub:    'Archivo', sans-serif;
+      --font-body:   'Poppins', sans-serif;
+      --radius:      8px;
+      --radius-sm:   5px;
     }
 
     html { font-size: 16px; }
 
     body {
-      font-family: var(--font);
-      background: var(--white);
-      color: var(--text);
+      font-family: var(--font-body);
+      background: var(--off-white);
+      color: var(--dark);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -47,29 +40,29 @@
     .page {
       max-width: 680px;
       margin: 0 auto;
-      padding: 3rem 2rem 5rem;
+      padding: 2.5rem 2rem 5rem;
     }
 
-    /* Header */
+    /* ── Header ── */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 2px solid var(--orange);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .logo-mark {
-      width: 34px;
-      height: 34px;
-      background: var(--black);
+      width: 36px;
+      height: 36px;
+      background: var(--orange);
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
@@ -79,61 +72,74 @@
 
     .logo-mark span {
       color: var(--white);
+      font-family: var(--font-head);
       font-size: 12px;
-      font-weight: 500;
       letter-spacing: 0.04em;
     }
 
     .logo-text { line-height: 1.2; }
-    .logo-name { font-size: 14px; font-weight: 500; color: var(--text); }
-    .logo-sub { font-size: 12px; color: var(--muted); }
+    .logo-name {
+      font-family: var(--font-sub);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--near-black);
+      letter-spacing: 0.02em;
+    }
+    .logo-sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 300;
+    }
 
-    /* Stage tracker */
+    /* ── Stage tracker ── */
     .stages {
       display: flex;
       align-items: center;
-      gap: 0;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
 
     .stage {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
+      gap: 7px;
+      font-family: var(--font-sub);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--muted);
-      font-weight: 400;
     }
 
-    .stage.active { color: var(--text); font-weight: 500; }
+    .stage.active { color: var(--dark); }
     .stage.done { color: var(--muted); }
 
     .stage-num {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      border: 1px solid var(--border-strong);
+      border: 1.5px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 700;
+      font-family: var(--font-sub);
       background: var(--white);
       flex-shrink: 0;
     }
 
     .stage.active .stage-num {
-      background: var(--black);
+      background: var(--orange);
       color: var(--white);
-      border-color: var(--black);
+      border-color: var(--orange);
     }
 
     .stage.done .stage-num {
       background: var(--off-white);
       color: var(--muted);
+      border-color: var(--border);
     }
-
-    .stage-done-check { font-size: 11px; }
 
     .stage-connector {
       flex: 1;
@@ -142,75 +148,99 @@
       margin: 0 8px;
     }
 
-    /* Form */
-    .form-heading { margin-bottom: 0.3rem; }
-    .form-heading h1 { font-size: 24px; font-weight: 400; color: var(--text); letter-spacing: -0.02em; }
-    .form-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2.5rem; }
+    /* ── Form headings ── */
+    h1 {
+      font-family: var(--font-head);
+      font-size: 26px;
+      color: var(--near-black);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .form-sub {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
 
     .section-label {
+      font-family: var(--font-sub);
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--orange);
       margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.6rem;
       border-bottom: 1px solid var(--border);
     }
 
+    /* ── Fields ── */
     .row-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
 
     .field { margin-bottom: 1.75rem; }
 
     .field-label {
       display: block;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
+      font-family: var(--font-sub);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--near-black);
       margin-bottom: 3px;
+      letter-spacing: 0.01em;
     }
 
     .field-hint {
+      font-family: var(--font-body);
       font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.5;
+      color: var(--muted);
+      line-height: 1.6;
       margin-bottom: 8px;
+      font-weight: 300;
     }
 
     .field-examples {
+      font-family: var(--font-body);
       font-size: 12px;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.55;
       margin-top: 6px;
       font-style: italic;
+      font-weight: 300;
     }
 
-    .req { color: #c94f2a; margin-left: 2px; }
+    .req { color: var(--orange); margin-left: 2px; }
 
     input[type="text"],
+    input[type="email"],
     textarea {
       width: 100%;
-      font-family: var(--font);
+      font-family: var(--font-body);
       font-size: 14px;
-      color: var(--text);
-      background: var(--off-white);
+      font-weight: 400;
+      color: var(--dark);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 10px 14px;
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.15s;
       outline: none;
       -webkit-appearance: none;
     }
 
     input[type="text"]:focus,
+    input[type="email"]:focus,
     textarea:focus {
-      border-color: var(--border-strong);
-      background: var(--white);
+      border-color: var(--orange);
     }
 
     textarea {
@@ -224,48 +254,51 @@
     .divider {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 2.5rem 0;
+      margin: 2.25rem 0;
     }
 
-    /* Submit */
+    /* ── Submit ── */
     .submit-area { margin-top: 2rem; }
 
     .submit-btn {
       width: 100%;
       padding: 14px 20px;
-      background: var(--black);
+      background: var(--orange);
       color: var(--white);
       border: none;
       border-radius: var(--radius);
-      font-family: var(--font);
-      font-size: 15px;
-      font-weight: 500;
+      font-family: var(--font-sub);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       transition: opacity 0.15s;
-      letter-spacing: -0.01em;
     }
 
-    .submit-btn:hover { opacity: 0.82; }
+    .submit-btn:hover { opacity: 0.88; }
     .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
     .submit-note {
+      font-family: var(--font-body);
       font-size: 12px;
       color: var(--muted);
       text-align: center;
       margin-top: 0.875rem;
-      line-height: 1.5;
+      line-height: 1.6;
+      font-weight: 300;
     }
 
-    /* Progress */
+    /* ── Progress ── */
     .progress { display: none; margin-top: 1.5rem; }
 
     .progress-track {
-      height: 2px;
-      background: var(--mid);
+      height: 3px;
+      background: var(--border);
       border-radius: 2px;
       overflow: hidden;
       margin-bottom: 0.75rem;
@@ -274,18 +307,34 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: var(--black);
+      background: var(--orange);
       border-radius: 2px;
       transition: width 0.5s ease;
     }
 
     .progress-text {
+      font-family: var(--font-body);
       font-size: 12px;
-      color: var(--text-secondary);
-      font-family: var(--font-mono);
+      color: var(--muted);
+      font-weight: 300;
     }
 
-    /* Output */
+    /* ── Error ── */
+    .error-box {
+      display: none;
+      background: #fff0ed;
+      border: 1px solid #f5c0b0;
+      border-left: 3px solid var(--orange);
+      border-radius: var(--radius-sm);
+      padding: 0.875rem 1rem;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--orange);
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* ── Output ── */
     .output { display: none; }
 
     .verdict-card {
@@ -293,63 +342,70 @@
       padding: 1.5rem;
       margin-bottom: 1.75rem;
       border: 1px solid var(--border);
+      background: var(--white);
     }
 
-    .verdict-card.hot { background: var(--hot-bg); border-color: rgba(201, 79, 42, 0.2); }
-    .verdict-card.pot { background: var(--pot-bg); border-color: rgba(42, 122, 79, 0.2); }
-    .verdict-card.bot { background: var(--bot-bg); border-color: rgba(138, 106, 26, 0.2); }
-    .verdict-card.not { background: var(--not-bg); border-color: var(--border); }
+    .verdict-card.hot { background: #fff0ed; border-color: #f5c0b0; border-left: 4px solid var(--orange); }
+    .verdict-card.pot { background: #edf6f1; border-color: #b8ddc8; border-left: 4px solid #2a7a4f; }
+    .verdict-card.bot { background: #faf4e0; border-color: #e0d09a; border-left: 4px solid #8a6a1a; }
+    .verdict-card.not { background: var(--off-white); border-color: var(--border); border-left: 4px solid var(--muted); }
 
     .verdict-badge {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
+      font-family: var(--font-sub);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 4px 10px;
       border-radius: 20px;
       margin-bottom: 0.875rem;
     }
 
-    .verdict-badge.hot { background: rgba(201,79,42,0.12); color: var(--hot); }
-    .verdict-badge.pot { background: rgba(42,122,79,0.12); color: var(--pot); }
-    .verdict-badge.bot { background: rgba(138,106,26,0.12); color: var(--bot); }
-    .verdict-badge.not { background: rgba(90,90,90,0.1); color: var(--not); }
+    .verdict-badge.hot { background: rgba(240,78,35,0.12); color: var(--orange); }
+    .verdict-badge.pot { background: rgba(42,122,79,0.12); color: #2a7a4f; }
+    .verdict-badge.bot { background: rgba(138,106,26,0.12); color: #8a6a1a; }
+    .verdict-badge.not { background: rgba(136,136,136,0.12); color: var(--muted); }
 
     .verdict-reason {
+      font-family: var(--font-sub);
       font-size: 16px;
-      font-weight: 500;
-      color: var(--text);
+      font-weight: 700;
+      color: var(--near-black);
       margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
       line-height: 1.4;
     }
 
     .verdict-detail {
+      font-family: var(--font-body);
       font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
+      color: var(--mid);
+      line-height: 1.75;
+      font-weight: 300;
     }
 
     .output-block { margin-bottom: 2rem; }
 
     .output-block-label {
+      font-family: var(--font-sub);
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--orange);
       margin-bottom: 0.875rem;
-      padding-bottom: 0.625rem;
+      padding-bottom: 0.6rem;
       border-bottom: 1px solid var(--border);
     }
 
     .output-body {
+      font-family: var(--font-body);
       font-size: 14px;
-      color: var(--text);
-      line-height: 1.75;
+      color: var(--dark);
+      line-height: 1.8;
+      font-weight: 300;
     }
 
     .gaps-list { list-style: none; }
@@ -358,61 +414,81 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 12px 0;
+      padding: 11px 0;
       border-bottom: 1px solid var(--border);
+      font-family: var(--font-body);
       font-size: 14px;
-      color: var(--text);
-      line-height: 1.55;
+      color: var(--dark);
+      line-height: 1.6;
+      font-weight: 300;
     }
 
     .gap-item:last-child { border-bottom: none; }
 
     .gap-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--bot);
+      background: var(--orange);
       flex-shrink: 0;
       margin-top: 6px;
     }
 
     .angle-box {
-      background: var(--off-white);
+      background: var(--orange-tint);
       border-radius: var(--radius);
       padding: 1.25rem 1.5rem;
+      font-family: var(--font-body);
       font-size: 15px;
-      color: var(--text);
-      line-height: 1.65;
+      color: var(--dark);
+      line-height: 1.7;
       font-style: italic;
-      border-left: 3px solid var(--black);
+      border-left: 3px solid var(--orange);
     }
 
-    /* Next step */
+    /* ── Next panel ── */
     .next-panel {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1.25rem;
-      background: var(--black);
+      background: var(--near-black);
       border-radius: var(--radius);
       padding: 1.25rem 1.5rem;
       margin-top: 2rem;
     }
 
     .next-panel-text { flex: 1; }
-    .next-panel-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 3px; }
-    .next-panel-sub { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+
+    .next-panel-title {
+      font-family: var(--font-sub);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 3px;
+      letter-spacing: 0.01em;
+    }
+
+    .next-panel-sub {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+      font-weight: 300;
+    }
 
     .next-btn {
       flex-shrink: 0;
       padding: 10px 18px;
-      background: var(--white);
-      color: var(--black);
+      background: var(--orange);
+      color: var(--white);
       border: none;
       border-radius: var(--radius-sm);
-      font-family: var(--font);
-      font-size: 14px;
-      font-weight: 500;
+      font-family: var(--font-sub);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -426,38 +502,24 @@
     .reset-link {
       display: block;
       text-align: center;
+      font-family: var(--font-body);
       font-size: 13px;
       color: var(--muted);
       margin-top: 1.25rem;
       cursor: pointer;
       background: none;
       border: none;
-      font-family: var(--font);
       text-decoration: underline;
       text-underline-offset: 3px;
+      font-weight: 300;
     }
-
-    /* Error */
-    .error-box {
-      display: none;
-      background: var(--hot-bg);
-      border: 1px solid rgba(201,79,42,0.2);
-      border-radius: var(--radius-sm);
-      padding: 0.875rem 1.125rem;
-      font-size: 13px;
-      color: var(--hot);
-      margin-top: 1rem;
-      line-height: 1.5;
-    }
-
-    /* Arrow icon inline */
-    .arrow { display: inline-block; }
 
     @media (max-width: 540px) {
-      .page { padding: 2rem 1.25rem 4rem; }
+      .page { padding: 1.75rem 1.25rem 4rem; }
       .row-2 { grid-template-columns: 1fr; }
       .stage-label-text { display: none; }
       .next-panel { flex-direction: column; align-items: flex-start; }
+      h1 { font-size: 22px; }
     }
   </style>
 </head>
@@ -488,7 +550,7 @@
     <div class="stage-connector"></div>
     <div class="stage" id="stage3">
       <div class="stage-num">3</div>
-      <span class="stage-label-text">Strengthen the story</span>
+      <span class="stage-label-text">Strengthen</span>
     </div>
     <div class="stage-connector"></div>
     <div class="stage" id="stage4">
@@ -499,9 +561,7 @@
 
   <!-- FORM -->
   <div id="formSection">
-    <div class="form-heading">
-      <h1>Tell us about your news</h1>
-    </div>
+    <h1>Tell us about your news</h1>
     <p class="form-sub">Answer the questions below — the more detail you give, the stronger the story we can build. There are no right or wrong answers at this stage.</p>
 
     <div class="row-2">
@@ -513,6 +573,11 @@
         <label class="field-label" for="contact">Your name</label>
         <input type="text" id="contact" placeholder="e.g. Jane Smith" autocomplete="name" />
       </div>
+    </div>
+
+    <div class="field" style="margin-top:1rem;">
+      <label class="field-label" for="email">Your email address <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="e.g. jane@acmeltd.com" autocomplete="email" />
     </div>
 
     <hr class="divider" />
@@ -547,14 +612,14 @@
 
     <div class="field">
       <label class="field-label" for="q5">Q5 — What thread does this build on?</label>
-      <div class="field-hint">What's already on record that this news continues or extends? Is this the first in a series, a follow-up to a previous announcement, or connected to something your company has said publicly before?</div>
+      <div class="field-hint">What's already on record that this news continues or extends? Is this the first in a series, a follow-up to a previous announcement, or something your company has said publicly before?</div>
       <div class="field-examples">e.g. "Third partnership this year, following Barclays and Lloyds" / "We predicted this in our 2024 SME Finance Report" / "First partnership — nothing on record before this."</div>
       <textarea class="short" id="q5" placeholder="What already exists that this news builds on?"></textarea>
     </div>
 
     <div class="field">
       <label class="field-label" for="q6">Q6 — Is there a standout angle?</label>
-      <div class="field-hint">A superlative or unusual twist that makes this stand out from similar announcements. Think: firsts, lasts, biggests, smallests, fastests, furthests, or a surprising contrast.</div>
+      <div class="field-hint">A superlative or unusual twist that makes this stand out. Think: firsts, lasts, biggests, smallests, fastests, furthests, or a surprising contrast.</div>
       <div class="field-examples">e.g. "First fintech integrated with HSBC's SME platform" / "Fastest invoice turnaround in the UK at 4 hours" / "12-person startup partnering with the UK's largest business bank."</div>
       <textarea class="short" id="q6" placeholder="What makes this stand out from a competitor making the same announcement?"></textarea>
     </div>
@@ -588,8 +653,7 @@
 
     <div class="submit-area">
       <button class="submit-btn" id="submitBtn" onclick="submitBrief()">
-        Submit for assessment
-        <span class="arrow">→</span>
+        Submit for assessment &rarr;
       </button>
       <p class="submit-note">We'll analyse your answers and return an honest impact assessment — what's strong, what could be stronger, and our recommended approach.</p>
       <div class="error-box" id="errorBox"></div>
@@ -634,7 +698,7 @@
         <div class="next-panel-sub">Step 3 lets you address the gaps above — then we produce a full draft and tailored playbook.</div>
       </div>
       <button class="next-btn" onclick="goToStage3()">
-        Continue <span class="arrow">→</span>
+        Continue &rarr;
       </button>
     </div>
 
@@ -650,23 +714,31 @@
 
   async function submitBrief() {
     const company = getVal('company');
-    const q1 = getVal('q1');
-    const q2 = getVal('q2');
-    const q3 = getVal('q3');
+    const email   = getVal('email');
+    const q1      = getVal('q1');
+    const q2      = getVal('q2');
+    const q3      = getVal('q3');
 
     const errorBox = document.getElementById('errorBox');
     errorBox.style.display = 'none';
 
-    if (!company || !q1 || !q2 || !q3) {
-      errorBox.textContent = 'Please complete at least: company name and questions 1, 2, and 3 before submitting.';
+    if (!company || !email || !q1 || !q2 || !q3) {
+      errorBox.textContent = 'Please complete at least: company name, email address, and questions 1, 2, and 3 before submitting.';
       errorBox.style.display = 'block';
       return;
     }
 
-    const btn = document.getElementById('submitBtn');
+    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRx.test(email)) {
+      errorBox.textContent = 'Please enter a valid email address.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    const btn      = document.getElementById('submitBtn');
     const progress = document.getElementById('progress');
-    const fill = document.getElementById('progressFill');
-    const text = document.getElementById('progressText');
+    const fill     = document.getElementById('progressFill');
+    const text     = document.getElementById('progressText');
 
     btn.disabled = true;
     progress.style.display = 'block';
@@ -691,13 +763,14 @@
     const payload = {
       company,
       contact: getVal('contact'),
+      email,
       q1, q2, q3,
-      q4: getVal('q4'),
-      q5: getVal('q5'),
-      q6: getVal('q6'),
-      q7: getVal('q7'),
-      q8: getVal('q8'),
-      q9: getVal('q9'),
+      q4:  getVal('q4'),
+      q5:  getVal('q5'),
+      q6:  getVal('q6'),
+      q7:  getVal('q7'),
+      q8:  getVal('q8'),
+      q9:  getVal('q9'),
       q10: getVal('q10'),
     };
 
@@ -712,22 +785,19 @@
       fill.style.width = '100%';
       text.textContent = 'Assessment ready.';
 
-      // Read raw text first so we can inspect it if JSON parsing fails
       const rawText = await res.text();
 
       let responseText = '';
       try {
         const data = JSON.parse(rawText);
-        // Handle Anthropic API response structure
         if (data.content && Array.isArray(data.content)) {
           responseText = data.content.find(b => b.type === 'text')?.text || '';
         } else if (data.error) {
           throw new Error('API error: ' + (data.error.message || JSON.stringify(data.error)));
         }
       } catch (parseErr) {
-        // If JSON parse fails, log the raw response for debugging
         console.error('Parse error:', parseErr);
-        console.error('Raw response (first 500 chars):', rawText.slice(0, 500));
+        console.error('Raw response:', rawText.slice(0, 500));
         throw new Error('Could not parse response: ' + parseErr.message);
       }
 
@@ -740,7 +810,7 @@
       btn.disabled = false;
       progress.style.display = 'none';
       fill.style.width = '0%';
-      errorBox.textContent = 'Error: ' + err.message + '. Check browser console for details.';
+      errorBox.textContent = 'Error: ' + err.message;
       errorBox.style.display = 'block';
       console.error('Full error:', err);
     }
@@ -758,16 +828,16 @@
   }
 
   function renderOutput(text) {
-    const verdictRaw = parseSection(text, 'VERDICT', 'STRENGTHS');
+    const verdictRaw   = parseSection(text, 'VERDICT', 'STRENGTHS');
     const strengthsRaw = parseSection(text, 'STRENGTHS', 'GAPS');
-    const gapsRaw = parseSection(text, 'GAPS', 'PROVISIONAL ANGLE');
-    const angleRaw = parseSection(text, 'PROVISIONAL ANGLE', null);
+    const gapsRaw      = parseSection(text, 'GAPS', 'PROVISIONAL ANGLE');
+    const angleRaw     = parseSection(text, 'PROVISIONAL ANGLE', null);
 
-    const lines = verdictRaw.split('\n').map(l => l.trim()).filter(Boolean);
+    const lines       = verdictRaw.split('\n').map(l => l.trim()).filter(Boolean);
     const verdictLine = lines[0] || '';
     const verdictRest = lines.slice(1).join(' ').trim();
 
-    let type = 'pot';
+    let type  = 'pot';
     let label = '🪴 POT news';
     if (verdictLine.startsWith('🔥')) { type = 'hot'; label = '🔥 HOT news'; }
     else if (verdictLine.startsWith('🤖')) { type = 'bot'; label = '🤖 BOT news'; }
@@ -810,8 +880,7 @@
     const s1 = document.getElementById('stage1');
     s1.classList.remove('active');
     s1.classList.add('done');
-    s1.querySelector('.stage-num').innerHTML = '✓';
-
+    s1.querySelector('.stage-num').innerHTML = '&#10003;';
     document.getElementById('stage2').classList.add('active');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -836,7 +905,7 @@
       if (i === 0) el.classList.add('active');
     });
 
-    ['company','contact','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id => {
+    ['company','contact','email','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
