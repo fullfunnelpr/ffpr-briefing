@@ -712,8 +712,24 @@
       fill.style.width = '100%';
       text.textContent = 'Assessment ready.';
 
-      const data = await res.json();
-      const responseText = data.content?.[0]?.text || '';
+      // Read raw text first so we can inspect it if JSON parsing fails
+      const rawText = await res.text();
+
+      let responseText = '';
+      try {
+        const data = JSON.parse(rawText);
+        // Handle Anthropic API response structure
+        if (data.content && Array.isArray(data.content)) {
+          responseText = data.content.find(b => b.type === 'text')?.text || '';
+        } else if (data.error) {
+          throw new Error('API error: ' + (data.error.message || JSON.stringify(data.error)));
+        }
+      } catch (parseErr) {
+        // If JSON parse fails, log the raw response for debugging
+        console.error('Parse error:', parseErr);
+        console.error('Raw response (first 500 chars):', rawText.slice(0, 500));
+        throw new Error('Could not parse response: ' + parseErr.message);
+      }
 
       if (!responseText) throw new Error('Empty response from assessment engine.');
 
@@ -724,8 +740,9 @@
       btn.disabled = false;
       progress.style.display = 'none';
       fill.style.width = '0%';
-      errorBox.textContent = 'Something went wrong. Please check your connection and try again. If the problem persists, email us directly.';
+      errorBox.textContent = 'Error: ' + err.message + '. Check browser console for details.';
       errorBox.style.display = 'block';
+      console.error('Full error:', err);
     }
   }
 
