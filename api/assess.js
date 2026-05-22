@@ -62,7 +62,7 @@ Keep the whole response under 380 words. Be honest, direct, and professional. Do
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+model: 'claude-sonnet-4-6',
         max_tokens: 1000,
         stream: false,
         messages: [{ role: 'user', content: prompt }],
