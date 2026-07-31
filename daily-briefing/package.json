@@ -1,0 +1,10 @@
+{
+  "name": "daily-briefing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Weekday morning briefing agent for Matt Phillips PR (Notion + Google Calendar + Gmail on Matagi).",
+  "engines": {
+    "node": "22.x"
+  }
+}
