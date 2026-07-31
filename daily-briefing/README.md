@@ -3,6 +3,53 @@
 An autonomous weekday morning briefing agent for **Matt Phillips PR**, built on
 **Matagi**. It replaces the Zapier "FFPR Morning Briefing Agent — 7:30am" Zap.
 
+## Deployment status
+
+Two implementations live in this repo:
+
+- **`lambda/`** — Python, **this is what is provisioned on Matagi** (a lambda,
+  because Matagi scheduling/HTTP for a from-scratch build in this workspace could
+  only target a Vercel/Render project deployed from a `matagi-customers` repo,
+  which this session's GitHub scope can't push to). This is the deployed agent.
+- **root (`api/`, `lib/`, `config/`)** — the Node/Vercel variant, a drop-in for
+  when a `matagi-customers`-scoped session can deploy it natively and wire a
+  `register_schedule` trigger.
+
+**What is live and verified (Matagi project `Daily Briefing`):**
+
+- Lambda `daily-briefing-agent`, S3 bucket `daily-briefing-store`, Notion
+  "Daily Briefing" dashboard page (created), Notion/Calendar/Gmail connections
+  shared with the lambda.
+- End-to-end run tested: **Google Calendar free-time, the Gmail pointer email,
+  and the S3 run-history snapshot all work.**
+
+**Two things to finish (both need one input each):**
+
+1. **Notion access.** The Matagi connection proxy accepts a `headers` dict but
+   does **not** forward it upstream, so Notion rejects every call with
+   `missing_version` (the required `Notion-Version` header never arrives).
+   Calendar/Gmail are unaffected. Fix: give the lambda a **Notion internal
+   integration token** (granted access to the four task boards + the Daily
+   Briefing page), injected without a redeploy:
+   ```
+   lambda_execute daily-briefing-agent {"op":"set_config",
+     "override":{"settings":{"notion_token":"secret_..."}}}
+   ```
+   Until then the agent produces a partial run and **suppresses the email/dashboard**
+   so no empty brief goes out.
+2. **Scheduling.** Not yet activated (it would send nothing useful until #1). Once
+   Notion works, schedule a weekday cron that invokes the lambda with
+   `{"trigger":"schedule"}`; the handler gates on the London send-hour + a daily
+   guard so 07:30 Europe/London stays correct across BST/GMT.
+
+The `lambda/` code is **token-ready** (direct Notion REST when a token is present)
+and includes the `set_config` op — the version currently deployed predates those
+two additions (large-zip redeploys are unreliable in this workspace); redeploy
+`lambda/` alongside adding the token.
+
+---
+
+
 Each weekday morning it:
 
 1. Reads open tasks from four Notion boards (Axate, DoubleVerify/ModOp, Oxford

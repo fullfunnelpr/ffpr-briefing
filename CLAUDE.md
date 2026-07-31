@@ -22,3 +22,21 @@ Key Matagi facts learned:
   (`/v1/storage/presign`, using a `storageResourceId` from `MATAGI_STORAGE_JSON`).
 - Third-party apps are reached through **shared connections** — no OAuth token
   ever reaches the resource code.
+
+Gotchas learned building the Daily Briefing agent:
+- **The connection proxy does not forward custom request headers.** It validates
+  a `headers` dict (a list form 422s) but strips it upstream. Google
+  Calendar/Gmail work (they need no custom header), but **Notion fails with
+  `missing_version`** because `Notion-Version` never arrives. Reach Notion from a
+  resource with a **direct integration token** (set the header yourself), not the
+  proxy.
+- **Lambdas run Python** (`handler.handler` = `def handler(event, context)`), not
+  Node. `lambda_provision`/`lambda_update_code` take a base64 zip.
+- **Large base64 zips transit unreliably** (~14 KB+ often fails to unzip); keep the
+  deploy package small, or push code in small chunks the resource assembles from
+  storage. To change config without a redeploy, have the handler accept a
+  `set_config` op that writes a merged `config/override.json` to the bucket.
+- **Scheduling targets Vercel/Render only**, which deploy from a
+  `matagi-customers` github_repo. A session scoped to a different GitHub owner
+  can't push there (cross-tier `add_repo` is refused), so native
+  `register_schedule` isn't available from such a session.
