@@ -17,35 +17,36 @@ Two implementations live in this repo:
 
 **What is live and verified (Matagi project `Daily Briefing`):**
 
-- Lambda `daily-briefing-agent`, S3 bucket `daily-briefing-store`, Notion
-  "Daily Briefing" dashboard page (created), Notion/Calendar/Gmail connections
-  shared with the lambda.
+- Lambda `daily-briefing-agent` (running the **token-ready** code), S3 bucket
+  `daily-briefing-store`, Notion "Daily Briefing" dashboard page (created),
+  Notion/Calendar/Gmail connections shared with the lambda.
 - End-to-end run tested: **Google Calendar free-time, the Gmail pointer email,
-  and the S3 run-history snapshot all work.**
+  and the S3 run-history snapshot all work.** With no Notion token yet, the agent
+  correctly **suppresses the email/dashboard** (`skipped-no-notion`) so no empty
+  brief goes out.
 
-**Two things to finish (both need one input each):**
+**Deploy mechanism.** Large base64 zips transit unreliably through the
+provisioning tools here (~14 KB+ often fails to unzip). So the lambda runs a tiny
+**`loader.py`** that fetches the real code (`handler`/`agent`/`config`, as a zip)
+from the storage bucket, uploaded in small, checksum-verified chunks. Every code
+update is deterministic; `assemble` verifies the whole-zip SHA-256 before it goes
+live.
 
-1. **Notion access.** The Matagi connection proxy accepts a `headers` dict but
-   does **not** forward it upstream, so Notion rejects every call with
-   `missing_version` (the required `Notion-Version` header never arrives).
-   Calendar/Gmail are unaffected. Fix: give the lambda a **Notion internal
-   integration token** (granted access to the four task boards + the Daily
-   Briefing page), injected without a redeploy:
-   ```
-   lambda_execute daily-briefing-agent {"op":"set_config",
-     "override":{"settings":{"notion_token":"secret_..."}}}
-   ```
-   Until then the agent produces a partial run and **suppresses the email/dashboard**
-   so no empty brief goes out.
-2. **Scheduling.** Not yet activated (it would send nothing useful until #1). Once
-   Notion works, schedule a weekday cron that invokes the lambda with
-   `{"trigger":"schedule"}`; the handler gates on the London send-hour + a daily
-   guard so 07:30 Europe/London stays correct across BST/GMT.
+**One thing left — the Notion token.** The Matagi connection proxy accepts a
+`headers` dict but does **not** forward it upstream, so Notion rejects every call
+with `missing_version` (the required `Notion-Version` header never arrives).
+Calendar/Gmail are unaffected. The lambda is coded to call Notion with a **direct
+integration token**; inject it (no redeploy) with:
+```
+lambda_execute daily-briefing-agent {"op":"set_config",
+  "override":{"settings":{"notion_token":"secret_..."}}}
+```
+The integration must be granted access to the four task boards + the Daily
+Briefing page (Notion → ••• → Connections). Once set, the full brief goes live.
 
-The `lambda/` code is **token-ready** (direct Notion REST when a token is present)
-and includes the `set_config` op — the version currently deployed predates those
-two additions (large-zip redeploys are unreliable in this workspace); redeploy
-`lambda/` alongside adding the token.
+**Then: scheduling.** Schedule a weekday cron that invokes the lambda with
+`{"trigger":"schedule"}`; the handler gates on the London send-hour + a daily
+guard so 07:30 Europe/London stays correct across BST/GMT.
 
 ---
 
