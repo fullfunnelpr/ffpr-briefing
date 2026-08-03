@@ -523,8 +523,24 @@ def _rt(text):
     return [{"type": "text", "text": {"content": str(text)[:1900]}}]
 
 
+def _seg(content, url=None):
+    t = {"content": str(content)[:1900]}
+    if url:
+        t["link"] = {"url": url}
+    return {"type": "text", "text": t}
+
+
 def _block(kind, text):
     return {"object": "block", "type": kind, kind: {"rich_text": _rt(text)}}
+
+
+def _task_line(kind, t, tail):
+    # The task title is a clickable link to its Notion page; the tail (label +
+    # reason) follows as plain text.
+    segs = [_seg(t["title"], t.get("url"))]
+    if tail:
+        segs.append(_seg(tail))
+    return {"object": "block", "type": kind, kind: {"rich_text": segs}}
 
 
 def _callout(text, emoji):
@@ -556,14 +572,14 @@ def render_dashboard_blocks(cfg, now_utc, free, ranked, record):
         blocks.append(_block("paragraph", tpl["top_empty"]))
     else:
         for t in ranked["top"]:
-            blocks.append(_block("numbered_list_item", f"{t['title']} — {t['label']}  ·  {reason_text(t)}"))
+            blocks.append(_task_line("numbered_list_item", t, f"  —  {t['label']}  ·  {reason_text(t)}"))
 
     blocks.append(_block("heading_2", "\U0001f4e1 Also on your radar"))
     if not ranked["radar"] and ranked["lower_count"] == 0:
         blocks.append(_block("paragraph", tpl["radar_empty"]))
     else:
         for t in ranked["radar"]:
-            blocks.append(_block("bulleted_list_item", f"{t['title']} — {t['label']}  ·  {reason_text(t)}"))
+            blocks.append(_task_line("bulleted_list_item", t, f"  —  {t['label']}  ·  {reason_text(t)}"))
         if ranked["lower_count"] > 0:
             plural = "" if ranked["lower_count"] == 1 else "s"
             blocks.append(_block("paragraph", f"Plus {ranked['lower_count']} lower-priority item{plural} parked for now."))
@@ -573,7 +589,7 @@ def render_dashboard_blocks(cfg, now_utc, free, ranked, record):
         blocks.append(_block("paragraph", tpl["needs_clarity_empty"]))
     else:
         for t in ranked["needs_clarity"][:15]:
-            blocks.append(_block("bulleted_list_item", f"{t['title']} — {t['label']}  ·  {t['clarity_reason']}"))
+            blocks.append(_task_line("bulleted_list_item", t, f"  —  {t['label']}  ·  {t['clarity_reason']}"))
         if len(ranked["needs_clarity"]) > 15:
             blocks.append(_block("paragraph", f"Plus {len(ranked['needs_clarity']) - 15} more items missing a clear priority."))
 
@@ -583,9 +599,7 @@ def render_dashboard_blocks(cfg, now_utc, free, ranked, record):
     counts = "  ·  ".join(
         f"{b['label'].split(' / ')[0]} {_fmt_count(record['source_counts'].get(b['key']))}" for b in cfg["boards"]
     )
-    blocks.append(_block("paragraph",
-        f"Sources: {counts}  ·  dashboard {record.get('dashboard_write_status', 'pending')}  "
-        f"·  email {record.get('email_send_status', 'pending')}  ·  run {record['trigger']}"))
+    blocks.append(_block("paragraph", f"Open tasks by board — {counts}  ·  run: {record['trigger']}"))
     return blocks
 
 
@@ -654,11 +668,18 @@ def update_dashboard(conn, page_id, blocks, title, icon):
     if not page_id:
         raise RuntimeError("dashboard_page_id not configured")
     existing = _list_children(conn, page_id)
-    for bid in existing:
-        resp = notion_request(conn, "DELETE", f"/v1/blocks/{bid}")
-        if resp.get("status", 0) >= 400 and resp.get("status") != 404:
-            raise RuntimeError(f"delete block {resp.get('status')}: {str(resp.get('body'))[:160]}")
-        time.sleep(_WRITE_SPACING)
+    # Delete the old body concurrently (each notion_request retries on 429), so
+    # clearing a full dashboard stays well within the lambda timeout.
+    if existing:
+        import concurrent.futures
+
+        def _del(bid):
+            return notion_request(conn, "DELETE", f"/v1/blocks/{bid}")
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
+            for resp in ex.map(_del, existing):
+                if resp.get("status", 0) >= 400 and resp.get("status") != 404:
+                    raise RuntimeError(f"delete block {resp.get('status')}: {str(resp.get('body'))[:160]}")
     if title:
         body = {"properties": {"title": {"title": [{"type": "text", "text": {"content": title}}]}}}
         if icon:

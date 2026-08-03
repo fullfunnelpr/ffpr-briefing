@@ -24,13 +24,8 @@ BOARDS = [
         "data_source_id": "af6fc7e2-4961-436e-b9ea-f5e77cc41529",
         "database_id": "2a05251f-072f-49f3-a67e-a9c85142e7ee",
     },
-    {
-        "key": "doubleverify",
-        "label": "DoubleVerify / ModOp",
-        "client_or_internal": "client",
-        "data_source_id": "7ce6aff2-bbb3-4868-8330-7d49dd738cf7",
-        "database_id": "4d239445-6c3b-4ca6-8af3-8dffe1234883",
-    },
+    # DoubleVerify / ModOp removed Aug 2026 — engagement ended, no longer a client.
+    # (data_source ea… 7ce6aff2-bbb3-4868-8330-7d49dd738cf7 if it needs re-adding.)
     {
         "key": "ogp",
         "label": "Oxford Global Projects",
