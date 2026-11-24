@@ -53,7 +53,7 @@ def name_tokens(company):
     core = [t for t in toks if t not in STOP and len(t) >= 3]
     return toks, (core or toks)
 
-def candidate_urls(row):
+def candidate_urls(row, no_guess=False):
     """Ranked candidate URLs: hint domains, then name guesses."""
     cands = []
     seen = set()
@@ -69,6 +69,8 @@ def candidate_urls(row):
     for m in DOMAIN_RE.findall(row.get("hints","") or ""):
         add("https://"+m.lower())
     # 2. name-based guesses
+    if no_guess:
+        return cands
     toks, core = name_tokens(row["company"])
     bases = []
     if toks:
@@ -151,7 +153,7 @@ def build_result(row, tried, best):
         r.update({"status": "unresolved", "url": "", "http_code": "", "title": "", "evidence": ""})
     return r
 
-def resolve_row(row, candidates_map, sleep):
+def resolve_row(row, candidates_map, sleep, no_guess=False):
     cands = []
     # operator-supplied candidates first
     extra = candidates_map.get(row["page_id"]) or candidates_map.get(row["company"]) or []
@@ -159,7 +161,10 @@ def resolve_row(row, candidates_map, sleep):
     for u in extra:
         uu = u if u.startswith("http") else "https://"+u
         cands.append(uu.rstrip('/'))
-    cands += candidate_urls(row)
+    # With no_guess, test ONLY the operator-supplied candidate(s) - no hint
+    # domains or name guesses - so a result reflects exactly that URL.
+    if not no_guess:
+        cands += candidate_urls(row)
     # de-dup preserving order
     seen=set(); ordered=[]
     for u in cands:
@@ -193,6 +198,8 @@ def main():
     ap.add_argument("--only-missing",default="",
                     help="path to a prior results.json; skip page_ids already 'verified'")
     ap.add_argument("--campus",default="",help="limit to one campus")
+    ap.add_argument("--no-guess",action="store_true",
+                    help="test only operator-supplied candidates (no hint/name guessing)")
     ap.add_argument("--sleep",type=float,default=0.4)
     a=ap.parse_args()
 
@@ -211,7 +218,7 @@ def main():
             results.append(done[row["page_id"]])
             print(f"[{i}/{total}] {row['company'][:40]:40} SKIP (already verified)",flush=True)
             continue
-        res=resolve_row(row, cand_map, a.sleep)
+        res=resolve_row(row, cand_map, a.sleep, a.no_guess)
         results.append(res)
         json.dump(results,open(a.output,"w"),indent=1,ensure_ascii=False)   # incremental save
         print(f"[{i}/{total}] {row['company'][:40]:40} {res['status']:17} {res.get('url','')}",flush=True)
