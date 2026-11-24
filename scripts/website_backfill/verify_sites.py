@@ -33,6 +33,7 @@ Usage:
 import argparse, json, re, subprocess, sys, time, os
 from urllib.parse import urlsplit
 
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 TLDS = ["com", "co.uk", "io", "ai", "bio", "space", "tech", "net", "eu", "org", "world", "uk"]
 DOMAIN_RE = re.compile(r'\b([a-z0-9][a-z0-9-]{1,}(?:\.[a-z0-9-]+)*\.(?:com|co\.uk|io|ai|bio|space|tech|net|eu|org|world|uk))\b', re.I)
 LEGAL = {"ltd","limited","plc","llp","llc","inc","incorporated","corp","corporation",
@@ -94,7 +95,7 @@ def curl_head(url, timeout=30):
     try:
         out = subprocess.run(
             ["curl","-sS","-o","/dev/null","-L","--max-time",str(timeout),
-             "-A","Mozilla/5.0 (compatible; FFPR-site-check/1.0)",
+             "-A", UA,
              "-w","%{url_effective} %{http_code}", url],
             capture_output=True, text=True, timeout=timeout+5)
         parts = (out.stdout or "").strip().split()
@@ -108,7 +109,7 @@ def curl_body(url, timeout=30, cap=60000):
     try:
         out = subprocess.run(
             ["curl","-sS","-L","--max-time",str(timeout),
-             "-A","Mozilla/5.0 (compatible; FFPR-site-check/1.0)", url],
+             "-A", UA, url],
             capture_output=True, text=True, timeout=timeout+5)
         return (out.stdout or "")[:cap]
     except Exception:
